@@ -23,5 +23,5 @@ with sync_playwright() as p:
     # locate the click button and click on 'sign in ' button :
 
     page.locator("//span[text()='Sign In']").click()
-    time.sleep(15)
+    time.sleep(20)
     browser.close()
