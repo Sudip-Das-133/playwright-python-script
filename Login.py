@@ -18,7 +18,7 @@ with sync_playwright() as p:
     ## Locate password textfield and fill the data :
 
     page.get_by_placeholder("Enter your password").fill("password2026")
-    time.sleep(5)
+    time.sleep(50)
 
     # locate the click button and click on 'sign in ' button :
 
