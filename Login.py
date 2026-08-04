@@ -11,14 +11,16 @@ with sync_playwright() as p:
     page.goto("https://org.dev.invorush.com/")
     time.sleep(10)
     ## Locate email id text field and fill the data :
-    page.get_by_placeholder("Enter your email").fill("newscenarictravelsllp@gmail.com")
+   # page.get_by_placeholder("Enter your email").fill("newscenarictravelsllp@gmail.com")
+    page.locator("//input[@name ='email']").fill("newscenarictravelsllp@gmail.com")
 
     time.sleep(10)
 
     ## Locate password textfield and fill the data :
 
-    page.get_by_placeholder("Enter your password").fill("password2026")
-    time.sleep(30)
+    #page.get_by_placeholder("Enter your password").fill("password2026")
+    page.locator("//input[@placeholder='Enter your password']").fill("password2026")
+    time.sleep(5)
 
     # locate the click button and click on 'sign in ' button :
 
