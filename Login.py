@@ -11,14 +11,20 @@ with sync_playwright() as p:
     page.goto("https://org.dev.invorush.com/")
     time.sleep(10)
     ## Locate email id text field and fill the data :
+        ###  Using locator by using placeholder :
    # page.get_by_placeholder("Enter your email").fill("newscenarictravelsllp@gmail.com")
+         ###   Using locator by using xpath :
     page.locator("//input[@name ='email']").fill("newscenarictravelsllp@gmail.com")
 
     time.sleep(10)
 
     ## Locate password textfield and fill the data :
 
+        ### Using locator by using placeholder:
+
     #page.get_by_placeholder("Enter your password").fill("password2026")
+
+        ###  Using locator by using Xpath:
     page.locator("//input[@placeholder='Enter your password']").fill("password2026")
     time.sleep(5)
 
