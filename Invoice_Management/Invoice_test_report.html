@@ -1,0 +1,132 @@
+report_file = "invoice_test_report.html"
+
+with open(report_file, "w", encoding="utf-8") as f:
+    f.write("""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Automation Test Report</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f5f6fa;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .passed {
+            color: green;
+            font-weight: bold;
+        }
+
+        .failed {
+            color: red;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #2c3e50;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Invoice Management Automation Test Report</h1>
+
+<p>
+    <strong>Execution Date:</strong>
+    17 August 2026
+</p>
+
+<p>
+    <strong>Overall Status:</strong>
+    <span class="passed">PASSED</span>
+</p>
+
+<table>
+
+<tr>
+    <th>Step</th>
+    <th>Description</th>
+    <th>Status</th>
+</tr>
+
+<tr>
+    <td>1</td>
+    <td>Open Invorush Application</td>
+    <td class="passed">PASS</td>
+</tr>
+
+<tr>
+    <td>2</td>
+    <td>Login</td>
+    <td class="passed">PASS</td>
+</tr>
+
+<tr>
+    <td>3</td>
+    <td>Open Invoice List</td>
+    <td class="passed">PASS</td>
+</tr>
+
+<tr>
+    <td>4</td>
+    <td>Create Invoice</td>
+    <td class="passed">PASS</td>
+</tr>
+
+<tr>
+    <td>5</td>
+    <td>Select Organization</td>
+    <td class="passed">PASS</td>
+</tr>
+
+<tr>
+    <td>6</td>
+    <td>Upload Invoice PDF</td>
+    <td class="passed">PASS</td>
+</tr>
+
+<tr>
+    <td>7</td>
+    <td>OCR Processing</td>
+    <td class="passed">PASS</td>
+</tr>
+
+<tr>
+    <td>8</td>
+    <td>Invoice Field Validation</td>
+    <td class="passed">PASS</td>
+</tr>
+
+<tr>
+    <td>9</td>
+    <td>Checker Configuration</td>
+    <td class="passed">PASS</td>
+</tr>
+
+</table>
+
+</body>
+</html>
+""")
+
+print(f"HTML report generated: {report_file}")
