@@ -1,132 +1,6082 @@
-report_file = "invoice_test_report.html"
 
-with open(report_file, "w", encoding="utf-8") as f:
-    f.write("""
+<!--#    ===========================================================================================-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+
+<!--<head>-->
+
+<!--    <meta charset="UTF-8">-->
+
+<!--    <meta name="viewport"-->
+<!--          content="width=device-width, initial-scale=1.0">-->
+
+<!--    <title>-->
+<!--        Invoice Management Automation Test Report-->
+<!--    </title>-->
+
+<!--    <style>-->
+
+<!--        * {-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            font-family: Arial, Helvetica, sans-serif;-->
+<!--            background: #f4f6f9;-->
+<!--            color: #212529;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            width: 95%;-->
+<!--            max-width: 1700px;-->
+<!--            margin: 30px auto;-->
+<!--        }-->
+
+<!--        /* =====================================================-->
+<!--           HEADER-->
+<!--        ===================================================== */-->
+
+<!--        .header {-->
+<!--            background: #ffffff;-->
+<!--            border-radius: 12px;-->
+<!--            padding: 25px 30px;-->
+<!--            box-shadow: 0 3px 12px rgba(0,0,0,0.08);-->
+<!--            margin-bottom: 25px;-->
+<!--        }-->
+
+<!--        .header h1 {-->
+<!--            margin: 0 0 10px 0;-->
+<!--            font-size: 30px;-->
+<!--        }-->
+
+<!--        .header p {-->
+<!--            margin: 6px 0;-->
+<!--            color: #555;-->
+<!--        }-->
+
+<!--        .overall-status {-->
+<!--            margin-top: 15px;-->
+<!--            font-size: 20px;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        .overall-pass {-->
+<!--            color: #198754;-->
+<!--        }-->
+
+<!--        .overall-fail {-->
+<!--            color: #dc3545;-->
+<!--        }-->
+
+<!--        .overall-warning {-->
+<!--            color: #d39e00;-->
+<!--        }-->
+
+<!--        /* =====================================================-->
+<!--           SUMMARY CARDS-->
+<!--        ===================================================== */-->
+
+<!--        .summary {-->
+<!--            display: grid;-->
+<!--            grid-template-columns:-->
+<!--                repeat(5, 1fr);-->
+
+<!--            gap: 18px;-->
+<!--            margin-bottom: 25px;-->
+<!--        }-->
+
+<!--        .summary-card {-->
+<!--            background: #ffffff;-->
+<!--            border-radius: 12px;-->
+<!--            padding: 20px;-->
+<!--            box-shadow: 0 3px 12px rgba(0,0,0,0.08);-->
+<!--        }-->
+
+<!--        .summary-card h2 {-->
+<!--            margin: 0;-->
+<!--            font-size: 32px;-->
+<!--        }-->
+
+<!--        .summary-card p {-->
+<!--            margin: 8px 0 0 0;-->
+<!--            color: #666;-->
+<!--        }-->
+
+<!--        .total {-->
+<!--            border-left: 6px solid #0d6efd;-->
+<!--        }-->
+
+<!--        .passed {-->
+<!--            border-left: 6px solid #198754;-->
+<!--        }-->
+
+<!--        .failed {-->
+<!--            border-left: 6px solid #dc3545;-->
+<!--        }-->
+
+<!--        .warnings {-->
+<!--            border-left: 6px solid #ffc107;-->
+<!--        }-->
+
+<!--        .duration {-->
+<!--            border-left: 6px solid #6f42c1;-->
+<!--        }-->
+
+<!--        /* =====================================================-->
+<!--           SECTION-->
+<!--        ===================================================== */-->
+
+<!--        .section {-->
+<!--            background: #ffffff;-->
+<!--            border-radius: 12px;-->
+<!--            padding: 25px;-->
+<!--            margin-bottom: 25px;-->
+<!--            box-shadow: 0 3px 12px rgba(0,0,0,0.08);-->
+<!--        }-->
+
+<!--        .section h2 {-->
+<!--            margin-top: 0;-->
+<!--            border-bottom: 1px solid #ddd;-->
+<!--            padding-bottom: 12px;-->
+<!--        }-->
+
+<!--        /* =====================================================-->
+<!--           INFORMATION TABLE-->
+<!--        ===================================================== */-->
+
+<!--        .info-table {-->
+<!--            width: 100%;-->
+<!--            border-collapse: collapse;-->
+<!--        }-->
+
+<!--        .info-table td {-->
+<!--            padding: 12px;-->
+<!--            border-bottom: 1px solid #eee;-->
+<!--        }-->
+
+<!--        .info-table td:first-child {-->
+<!--            font-weight: bold;-->
+<!--            width: 250px;-->
+<!--        }-->
+
+<!--        /* =====================================================-->
+<!--           TEST TABLE-->
+<!--        ===================================================== */-->
+
+<!--        .test-table-wrapper {-->
+<!--            overflow-x: auto;-->
+<!--        }-->
+
+<!--        .test-table {-->
+<!--            width: 100%;-->
+<!--            min-width: 1300px;-->
+<!--            border-collapse: collapse;-->
+<!--        }-->
+
+<!--        .test-table th {-->
+<!--            background: #212529;-->
+<!--            color: #ffffff;-->
+<!--            padding: 13px;-->
+<!--            text-align: left;-->
+<!--            white-space: nowrap;-->
+<!--        }-->
+
+<!--        .test-table td {-->
+<!--            padding: 12px;-->
+<!--            border-bottom: 1px solid #ddd;-->
+<!--            vertical-align: top;-->
+<!--        }-->
+
+<!--        .test-table tr:hover {-->
+<!--            background: #f8f9fa;-->
+<!--        }-->
+
+<!--        /* =====================================================-->
+<!--           STATUS BADGES-->
+<!--        ===================================================== */-->
+
+<!--        .status {-->
+<!--            display: inline-block;-->
+<!--            padding: 6px 13px;-->
+<!--            border-radius: 20px;-->
+<!--            font-size: 12px;-->
+<!--            font-weight: bold;-->
+<!--            text-transform: uppercase;-->
+<!--        }-->
+
+<!--        .status-pass {-->
+<!--            background: #d1e7dd;-->
+<!--            color: #0f5132;-->
+<!--        }-->
+
+<!--        .status-fail {-->
+<!--            background: #f8d7da;-->
+<!--            color: #842029;-->
+<!--        }-->
+
+<!--        .status-warning {-->
+<!--            background: #fff3cd;-->
+<!--            color: #664d03;-->
+<!--        }-->
+
+<!--        .status-skip {-->
+<!--            background: #e2e3e5;-->
+<!--            color: #41464b;-->
+<!--        }-->
+
+<!--        /* =====================================================-->
+<!--           FIELD VALIDATION-->
+<!--        ===================================================== */-->
+
+<!--        .field-table {-->
+<!--            width: 100%;-->
+<!--            border-collapse: collapse;-->
+<!--        }-->
+
+<!--        .field-table th {-->
+<!--            background: #343a40;-->
+<!--            color: white;-->
+<!--            padding: 12px;-->
+<!--            text-align: left;-->
+<!--        }-->
+
+<!--        .field-table td {-->
+<!--            padding: 12px;-->
+<!--            border-bottom: 1px solid #ddd;-->
+<!--        }-->
+
+<!--        .field-name {-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        /* =====================================================-->
+<!--           PROGRESS BAR-->
+<!--        ===================================================== */-->
+
+<!--        .progress-container {-->
+<!--            width: 100%;-->
+<!--            background: #e9ecef;-->
+<!--            height: 22px;-->
+<!--            border-radius: 20px;-->
+<!--            overflow: hidden;-->
+<!--        }-->
+
+<!--        .progress-bar {-->
+<!--            height: 100%;-->
+<!--            width: 0%;-->
+<!--            background: #198754;-->
+<!--            transition: width 0.5s;-->
+<!--        }-->
+
+<!--        /* =====================================================-->
+<!--           ERROR BOX-->
+<!--        ===================================================== */-->
+
+<!--        .error-box {-->
+<!--            background: #f8d7da;-->
+<!--            color: #842029;-->
+<!--            border-left: 5px solid #dc3545;-->
+<!--            padding: 15px;-->
+<!--            border-radius: 6px;-->
+<!--            margin-top: 10px;-->
+<!--            white-space: pre-wrap;-->
+<!--        }-->
+
+<!--        /* =====================================================-->
+<!--           FOOTER-->
+<!--        ===================================================== */-->
+
+<!--        .footer {-->
+<!--            text-align: center;-->
+<!--            color: #777;-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        /* =====================================================-->
+<!--           RESPONSIVE-->
+<!--        ===================================================== */-->
+
+<!--        @media (max-width: 1100px) {-->
+
+<!--            .summary {-->
+<!--                grid-template-columns:-->
+<!--                    repeat(2, 1fr);-->
+<!--            }-->
+
+<!--        }-->
+
+<!--        @media (max-width: 600px) {-->
+
+<!--            .summary {-->
+<!--                grid-template-columns:-->
+<!--                    1fr;-->
+<!--            }-->
+
+<!--            .container {-->
+<!--                width: 98%;-->
+<!--            }-->
+
+<!--        }-->
+
+<!--    </style>-->
+
+<!--</head>-->
+
+
+<!--<body>-->
+
+<!--<div class="container">-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         REPORT HEADER-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="header">-->
+
+<!--        <h1>-->
+<!--            Invoice Management Automation Test Report-->
+<!--        </h1>-->
+
+<!--        <p>-->
+<!--            <strong>Automation Framework:</strong>-->
+<!--            Playwright + Python-->
+<!--        </p>-->
+
+<!--        <p>-->
+<!--            <strong>Test Module:</strong>-->
+<!--            Invoice Management-->
+<!--        </p>-->
+
+<!--        <p>-->
+<!--            <strong>Test Flow:</strong>-->
+<!--            Authentication → Invoice Creation →-->
+<!--            OCR Validation → Checker Configuration-->
+<!--        </p>-->
+
+<!--        <p>-->
+<!--            <strong>Execution Start:</strong>-->
+<!--            <span id="startTime">-->
+<!--                - -->
+<!--            </span>-->
+<!--        </p>-->
+
+<!--        <p>-->
+<!--            <strong>Execution End:</strong>-->
+<!--            <span id="endTime">-->
+<!--                - -->
+<!--            </span>-->
+<!--        </p>-->
+
+<!--        <p>-->
+<!--            <strong>Execution Duration:</strong>-->
+<!--            <span id="executionDuration">-->
+<!--                - -->
+<!--            </span>-->
+<!--        </p>-->
+
+<!--        <div-->
+<!--            id="overallStatus"-->
+<!--            class="overall-status overall-pass">-->
+
+<!--            Overall Status:-->
+<!--            PASS-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         SUMMARY-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="summary">-->
+
+
+<!--        <div class="summary-card total">-->
+
+<!--            <h2 id="totalTests">-->
+<!--                0-->
+<!--            </h2>-->
+
+<!--            <p>-->
+<!--                Total Validations-->
+<!--            </p>-->
+
+<!--        </div>-->
+
+
+<!--        <div class="summary-card passed">-->
+
+<!--            <h2 id="passedTests">-->
+<!--                0-->
+<!--            </h2>-->
+
+<!--            <p>-->
+<!--                Passed-->
+<!--            </p>-->
+
+<!--        </div>-->
+
+
+<!--        <div class="summary-card failed">-->
+
+<!--            <h2 id="failedTests">-->
+<!--                0-->
+<!--            </h2>-->
+
+<!--            <p>-->
+<!--                Failed-->
+<!--            </p>-->
+
+<!--        </div>-->
+
+
+<!--        <div class="summary-card warnings">-->
+
+<!--            <h2 id="warningTests">-->
+<!--                0-->
+<!--            </h2>-->
+
+<!--            <p>-->
+<!--                Warnings-->
+<!--            </p>-->
+
+<!--        </div>-->
+
+
+<!--        <div class="summary-card duration">-->
+
+<!--            <h2 id="durationSeconds">-->
+<!--                0s-->
+<!--            </h2>-->
+
+<!--            <p>-->
+<!--                Execution Time-->
+<!--            </p>-->
+
+<!--        </div>-->
+
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         TEST EXECUTION INFORMATION-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="section">-->
+
+<!--        <h2>-->
+<!--            Test Execution Information-->
+<!--        </h2>-->
+
+<!--        <table class="info-table">-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Application-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    Invorush-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Environment-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    Development-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Application URL-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    https://org.dev.invorush.com/-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Browser-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    Chromium-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Browser Mode-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    Headed-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Test Type-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    Functional + OCR Validation-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Test Status-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    <span-->
+<!--                        class="status status-pass"-->
+<!--                        id="testStatus">-->
+
+<!--                        PASS-->
+
+<!--                    </span>-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--        </table>-->
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         OVERALL PROGRESS-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="section">-->
+
+<!--        <h2>-->
+<!--            Test Execution Progress-->
+<!--        </h2>-->
+
+<!--        <div class="progress-container">-->
+
+<!--            <div-->
+<!--                id="progressBar"-->
+<!--                class="progress-bar">-->
+
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--        <p>-->
+
+<!--            <strong>-->
+<!--                Completion:-->
+<!--            </strong>-->
+
+<!--            <span id="completionPercentage">-->
+<!--                0%-->
+<!--            </span>-->
+
+<!--        </p>-->
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         APPLICATION / AUTHENTICATION-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="section">-->
+
+<!--        <h2>-->
+<!--            1. Authentication & Application Validation-->
+<!--        </h2>-->
+
+<!--        <div class="test-table-wrapper">-->
+
+<!--            <table class="test-table">-->
+
+<!--                <thead>-->
+
+<!--                    <tr>-->
+
+<!--                        <th>-->
+<!--                            #-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Test Step-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Expected Result-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Actual Result-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Status-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Details-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Execution Time-->
+<!--                        </th>-->
+
+<!--                    </tr>-->
+
+<!--                </thead>-->
+
+
+<!--                <tbody>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            1-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Open Application-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Application should open successfully-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Application opened-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Application URL loaded successfully.-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            - -->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            2-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Email Field-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Email field should be available-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Email field available-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Email field located using name='email'.-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            - -->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            3-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Password Field-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Password field should be available-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Password field available-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Password field located successfully.-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            - -->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            4-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Sign In-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            User should login successfully-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Login successful-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Sign In action completed.-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            - -->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            5-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice List Visibility-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice List should be visible-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice List visible-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Login verification completed.-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            - -->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                </tbody>-->
+
+<!--            </table>-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         INVOICE CREATION-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="section">-->
+
+<!--        <h2>-->
+<!--            2. Invoice Creation Flow-->
+<!--        </h2>-->
+
+<!--        <div class="test-table-wrapper">-->
+
+<!--            <table class="test-table">-->
+
+<!--                <thead>-->
+
+<!--                    <tr>-->
+
+<!--                        <th>-->
+<!--                            #-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Validation-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Expected Result-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Actual Result-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Status-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Details-->
+<!--                        </th>-->
+
+<!--                    </tr>-->
+
+<!--                </thead>-->
+
+<!--                <tbody>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            6-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice List Navigation-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice List should open-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice List opened-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice List clicked successfully.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            7-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Create Invoice Button-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Create Invoice should be visible-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Create Invoice visible-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Create Invoice locator found.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            8-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Create Invoice Navigation-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Create Invoice page should open-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Create Invoice clicked-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Create Invoice action completed.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            9-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Proceed Button-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Proceed button should be available-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Proceed button clicked-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Proceed action completed.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            10-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Organization Search-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Search organization should be visible-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Search organization visible-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Organization selector opened.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            11-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Organization Selection-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            NEW SCENARIC TRAVELS LLP should be selected-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            NEW SCENARIC TRAVELS LLP selected-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Organization selected successfully.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            12-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Next Button-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Next should navigate to upload page-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Upload Invoice page opened-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Successfully moved to invoice upload.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                </tbody>-->
+
+<!--            </table>-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         PDF UPLOAD-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="section">-->
+
+<!--        <h2>-->
+<!--            3. Invoice PDF Upload & OCR Processing-->
+<!--        </h2>-->
+
+<!--        <div class="test-table-wrapper">-->
+
+<!--            <table class="test-table">-->
+
+<!--                <thead>-->
+
+<!--                    <tr>-->
+
+<!--                        <th>-->
+<!--                            #-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Validation-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Expected Result-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Actual Result-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Status-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Details-->
+<!--                        </th>-->
+
+<!--                    </tr>-->
+
+<!--                </thead>-->
+
+<!--                <tbody>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            13-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            File Input-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            File input should be attached-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            File input attached-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            input#file located successfully.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            14-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            PDF Upload-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice PDF should upload-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            PDF uploaded-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice PDF successfully attached.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            15-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Upload Submit Button-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Submit button should be enabled-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Submit button enabled-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Upload button passed enabled-state validation.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            16-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Submit Invoice PDF-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            PDF should be submitted for OCR-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            PDF submitted-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            OCR processing started.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            17-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice Form-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice Form should become visible-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice Form visible-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            OCR processing completed successfully.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                </tbody>-->
+
+<!--            </table>-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         OCR VALIDATION-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="section">-->
+
+<!--        <h2>-->
+<!--            4. OCR Field Validation-->
+<!--        </h2>-->
+
+<!--        <div class="test-table-wrapper">-->
+
+<!--            <table class="test-table">-->
+
+<!--                <thead>-->
+
+<!--                    <tr>-->
+
+<!--                        <th>-->
+<!--                            #-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Field-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Expected-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            OCR Value-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Fallback Value-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Final Value-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Status-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Details-->
+<!--                        </th>-->
+
+<!--                    </tr>-->
+
+<!--                </thead>-->
+
+<!--                <tbody>-->
+
+
+<!--                    &lt;!&ndash; INVOICE NUMBER &ndash;&gt;-->
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            18-->
+<!--                        </td>-->
+
+<!--                        <td class="field-name">-->
+<!--                            Invoice Number-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            OCR should populate invoice number-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            30585-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            13856-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            30585-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            OCR value found. Manual fallback not required.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    &lt;!&ndash; ISSUE DATE &ndash;&gt;-->
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            19-->
+<!--                        </td>-->
+
+<!--                        <td class="field-name">-->
+<!--                            Invoice Issue Date-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            OCR should populate invoice issue date-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            - -->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            June 13, 2026-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            June 13, 2026-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-warning">-->
+<!--                                WARNING-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            OCR did not populate the date;-->
+<!--                            manual fallback was used.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    &lt;!&ndash; DUE DATE &ndash;&gt;-->
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            20-->
+<!--                        </td>-->
+
+<!--                        <td class="field-name">-->
+<!--                            Invoice Due Date-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            OCR should populate invoice due date-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            - -->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            September 13, 2026-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            September 13, 2026-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-warning">-->
+<!--                                WARNING-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            OCR did not populate the date;-->
+<!--                            manual fallback was used.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    &lt;!&ndash; AMOUNT &ndash;&gt;-->
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            21-->
+<!--                        </td>-->
+
+<!--                        <td class="field-name">-->
+<!--                            Invoice Amount-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            OCR should populate invoice amount-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            2631.48-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            2631.48-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            2631.48-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            OCR value found successfully.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                </tbody>-->
+
+<!--            </table>-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         FINAL FIELD VALIDATION-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="section">-->
+
+<!--        <h2>-->
+<!--            5. Final Mandatory Invoice Field Validation-->
+<!--        </h2>-->
+
+<!--        <div class="test-table-wrapper">-->
+
+<!--            <table class="field-table">-->
+
+<!--                <thead>-->
+
+<!--                    <tr>-->
+
+<!--                        <th>-->
+<!--                            Field-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Mandatory-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Final Value-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Validation-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Status-->
+<!--                        </th>-->
+
+<!--                    </tr>-->
+
+<!--                </thead>-->
+
+<!--                <tbody>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td class="field-name">-->
+<!--                            Invoice Number-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            YES-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            30585-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Value is not empty-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td class="field-name">-->
+<!--                            Invoice Issue Date-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            YES-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            June 13, 2026-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Date is not "Pick a date"-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td class="field-name">-->
+<!--                            Invoice Due Date-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            YES-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            September 13, 2026-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Date is not "Pick a date"-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td class="field-name">-->
+<!--                            Invoice Amount-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            YES-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            2631.48-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Value is not empty-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                </tbody>-->
+
+<!--            </table>-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         INVOICE FORM NEXT-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="section">-->
+
+<!--        <h2>-->
+<!--            6. Invoice Form Submission-->
+<!--        </h2>-->
+
+<!--        <div class="test-table-wrapper">-->
+
+<!--            <table class="test-table">-->
+
+<!--                <thead>-->
+
+<!--                    <tr>-->
+
+<!--                        <th>-->
+<!--                            #-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Validation-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Expected-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Actual-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Status-->
+<!--                        </th>-->
+
+<!--                    </tr>-->
+
+<!--                </thead>-->
+
+<!--                <tbody>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            22-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Mandatory Field Validation-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            No mandatory field should be empty-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            All 4 fields populated-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            23-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice Form Next Button-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Next button should be enabled-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Next button enabled-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            24-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice Form Submission-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice Form should submit successfully-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Invoice Form submitted-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                </tbody>-->
+
+<!--            </table>-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         CHECKER CONFIG-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="section">-->
+
+<!--        <h2>-->
+<!--            7. Checker Configuration Validation-->
+<!--        </h2>-->
+
+<!--        <div class="test-table-wrapper">-->
+
+<!--            <table class="test-table">-->
+
+<!--                <thead>-->
+
+<!--                    <tr>-->
+
+<!--                        <th>-->
+<!--                            #-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Validation-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Expected Result-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Actual Result-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Status-->
+<!--                        </th>-->
+
+<!--                        <th>-->
+<!--                            Details-->
+<!--                        </th>-->
+
+<!--                    </tr>-->
+
+<!--                </thead>-->
+
+<!--                <tbody>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            25-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Checkers Config Page-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Checkers Config should be visible-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Checkers Config visible-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Successfully moved to Checkers Config.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            26-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            No Checker Verification Option-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            "(No checker verification required.)"-->
+<!--                            should be visible-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Option visible-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Checker option located successfully.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            27-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Checker Configuration Selection-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            No checker verification required-->
+<!--                            should be selected-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Option selected-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Checker configuration successfully selected.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                    <tr>-->
+
+<!--                        <td>-->
+<!--                            28-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Checker Next Button-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Next button should be available-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Next button available-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+
+<!--                            <span class="status status-pass">-->
+<!--                                PASS-->
+<!--                            </span>-->
+
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            Checker configuration Next button clicked.-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+
+
+<!--                </tbody>-->
+
+<!--            </table>-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         FINAL RESULT-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="section">-->
+
+<!--        <h2>-->
+<!--            8. Final Test Result-->
+<!--        </h2>-->
+
+<!--        <table class="info-table">-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Application-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    PASS-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Authentication-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    PASS-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Invoice Creation-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    PASS-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    PDF Upload-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    PASS-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    OCR Processing-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    PASS-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Invoice Number Validation-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    PASS-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Invoice Issue Date Validation-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    PASS-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Invoice Due Date Validation-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    PASS-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Invoice Amount Validation-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    PASS-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Mandatory Field Validation-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    PASS-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Invoice Form Submission-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    PASS-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Checker Configuration-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    PASS-->
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                <td>-->
+<!--                    Overall Test-->
+<!--                </td>-->
+
+<!--                <td>-->
+
+<!--                    <strong class="overall-pass">-->
+<!--                        PASS-->
+<!--                    </strong>-->
+
+<!--                </td>-->
+
+<!--            </tr>-->
+
+<!--        </table>-->
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         ERRORS-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="section">-->
+
+<!--        <h2>-->
+<!--            Errors / Exceptions-->
+<!--        </h2>-->
+
+<!--        <div-->
+<!--            id="errorContainer">-->
+
+<!--            <p>-->
+<!--                No errors reported.-->
+<!--            </p>-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+<!--    &lt;!&ndash; =====================================================-->
+<!--         FOOTER-->
+<!--    ====================================================== &ndash;&gt;-->
+
+<!--    <div class="footer">-->
+
+<!--        Invoice Management Automation Report-->
+
+<!--        <br>-->
+
+<!--        Generated by Playwright + Python-->
+
+<!--    </div>-->
+
+
+<!--</div>-->
+
+
+<!--<script>-->
+
+<!--    /*-->
+<!--    ============================================================-->
+<!--    SAMPLE REPORT DATA-->
+<!--    ============================================================-->
+
+<!--    Your Python Playwright script should replace these values-->
+<!--    dynamically when the test executes.-->
+<!--    */-->
+
+
+<!--    const report = {-->
+
+<!--        startTime:-->
+<!--            new Date().toLocaleString(),-->
+
+<!--        endTime:-->
+<!--            new Date().toLocaleString(),-->
+
+<!--        durationSeconds:-->
+<!--            0,-->
+
+<!--        totalTests:-->
+<!--            28,-->
+
+<!--        passedTests:-->
+<!--            28,-->
+
+<!--        failedTests:-->
+<!--            0,-->
+
+<!--        warningTests:-->
+<!--            2-->
+
+<!--    };-->
+
+
+<!--    /*-->
+<!--    ============================================================-->
+<!--    UPDATE SUMMARY-->
+<!--    ============================================================-->
+<!--    */-->
+
+<!--    document.getElementById(-->
+<!--        "totalTests"-->
+<!--    ).innerText =-->
+<!--        report.totalTests;-->
+
+
+<!--    document.getElementById(-->
+<!--        "passedTests"-->
+<!--    ).innerText =-->
+<!--        report.passedTests;-->
+
+
+<!--    document.getElementById(-->
+<!--        "failedTests"-->
+<!--    ).innerText =-->
+<!--        report.failedTests;-->
+
+
+<!--    document.getElementById(-->
+<!--        "warningTests"-->
+<!--    ).innerText =-->
+<!--        report.warningTests;-->
+
+
+<!--    document.getElementById(-->
+<!--        "durationSeconds"-->
+<!--    ).innerText =-->
+<!--        report.durationSeconds + "s";-->
+
+
+<!--    document.getElementById(-->
+<!--        "startTime"-->
+<!--    ).innerText =-->
+<!--        report.startTime;-->
+
+
+<!--    document.getElementById(-->
+<!--        "endTime"-->
+<!--    ).innerText =-->
+<!--        report.endTime;-->
+
+
+<!--    /*-->
+<!--    ============================================================-->
+<!--    COMPLETION %-->
+<!--    ============================================================-->
+<!--    */-->
+
+<!--    let completion = 0;-->
+
+<!--    if (report.totalTests > 0) {-->
+
+<!--        completion =-->
+<!--            (-->
+<!--                (-->
+<!--                    report.passedTests +-->
+<!--                    report.failedTests +-->
+<!--                    report.warningTests-->
+<!--                )-->
+<!--                /-->
+<!--                report.totalTests-->
+<!--            ) * 100;-->
+
+<!--    }-->
+
+
+<!--    document.getElementById(-->
+<!--        "completionPercentage"-->
+<!--    ).innerText =-->
+<!--        Math.round(completion) + "%";-->
+
+
+<!--    document.getElementById(-->
+<!--        "progressBar"-->
+<!--    ).style.width =-->
+<!--        completion + "%";-->
+
+
+<!--    /*-->
+<!--    ============================================================-->
+<!--    OVERALL STATUS-->
+<!--    ============================================================-->
+<!--    */-->
+
+<!--    const overallStatus =-->
+<!--        document.getElementById(-->
+<!--            "overallStatus"-->
+<!--        );-->
+
+
+<!--    const testStatus =-->
+<!--        document.getElementById(-->
+<!--            "testStatus"-->
+<!--        );-->
+
+
+<!--    if (report.failedTests > 0) {-->
+
+<!--        overallStatus.innerText =-->
+<!--            "Overall Status: FAIL";-->
+
+<!--        overallStatus.className =-->
+<!--            "overall-status overall-fail";-->
+
+<!--        testStatus.innerText =-->
+<!--            "FAIL";-->
+
+<!--        testStatus.className =-->
+<!--            "status status-fail";-->
+
+<!--    }-->
+
+<!--    else if (report.warningTests > 0) {-->
+
+<!--        overallStatus.innerText =-->
+<!--            "Overall Status: PASS WITH WARNINGS";-->
+
+<!--        overallStatus.className =-->
+<!--            "overall-status overall-warning";-->
+
+<!--        testStatus.innerText =-->
+<!--            "PASS WITH WARNINGS";-->
+
+<!--        testStatus.className =-->
+<!--            "status status-warning";-->
+
+<!--    }-->
+
+<!--    else {-->
+
+<!--        overallStatus.innerText =-->
+<!--            "Overall Status: PASS";-->
+
+<!--        overallStatus.className =-->
+<!--            "overall-status overall-pass";-->
+
+<!--        testStatus.innerText =-->
+<!--            "PASS";-->
+
+<!--        testStatus.className =-->
+<!--            "status status-pass";-->
+
+<!--    }-->
+
+<!--</script>-->
+
+
+<!--</body>-->
+
+<!--</html>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Invoice Automation Test Report</title>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Invoice Management Payment Automation Test Report
+    </title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background: #f5f6fa;
+
+        * {
+            box-sizing: border-box;
         }
 
-        h1 {
-            color: #2c3e50;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #212529;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1700px;
+            margin: 30px auto;
+        }
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px 30px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 30px;
+        }
+
+        .header p {
+            margin: 6px 0;
+            color: #555;
+        }
+
+        .overall-status {
+            margin-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .overall-pass {
+            color: #198754;
+        }
+
+        .overall-fail {
+            color: #dc3545;
+        }
+
+        .overall-warning {
+            color: #d39e00;
+        }
+
+        /* =====================================================
+           SUMMARY CARDS
+        ===================================================== */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .summary-card h2 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .summary-card p {
+            margin: 8px 0 0 0;
+            color: #666;
+        }
+
+        .total {
+            border-left: 6px solid #0d6efd;
         }
 
         .passed {
-            color: green;
-            font-weight: bold;
+            border-left: 6px solid #198754;
         }
 
         .failed {
-            color: red;
-            font-weight: bold;
+            border-left: 6px solid #dc3545;
         }
 
-        table {
+        .warnings {
+            border-left: 6px solid #ffc107;
+        }
+
+        .duration {
+            border-left: 6px solid #6f42c1;
+        }
+
+        /* =====================================================
+           SECTION
+        ===================================================== */
+
+        .section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .section h2 {
+            margin-top: 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 12px;
+        }
+
+        /* =====================================================
+           INFORMATION TABLE
+        ===================================================== */
+
+        .info-table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
         }
 
-        th, td {
-            border: 1px solid #ddd;
+        .info-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-table td:first-child {
+            font-weight: bold;
+            width: 280px;
+        }
+
+        /* =====================================================
+           TEST TABLE
+        ===================================================== */
+
+        .test-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .test-table {
+            width: 100%;
+            min-width: 1400px;
+            border-collapse: collapse;
+        }
+
+        .test-table th {
+            background: #212529;
+            color: #ffffff;
+            padding: 13px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .test-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .test-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* =====================================================
+           STATUS BADGES
+        ===================================================== */
+
+        .status {
+            display: inline-block;
+            padding: 6px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-pass {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-fail {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .status-warning {
+            background: #fff3cd;
+            color: #664d03;
+        }
+
+        .status-skip {
+            background: #e2e3e5;
+            color: #41464b;
+        }
+
+        /* =====================================================
+           FIELD VALIDATION
+        ===================================================== */
+
+        .field-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .field-table th {
+            background: #343a40;
+            color: white;
             padding: 12px;
             text-align: left;
         }
 
-        th {
-            background: #2c3e50;
-            color: white;
+        .field-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
         }
+
+        .field-name {
+            font-weight: bold;
+        }
+
+        /* =====================================================
+           PROGRESS BAR
+        ===================================================== */
+
+        .progress-container {
+            width: 100%;
+            background: #e9ecef;
+            height: 22px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #198754;
+            transition: width 0.5s;
+        }
+
+        /* =====================================================
+           ERROR BOX
+        ===================================================== */
+
+        .error-box {
+            background: #f8d7da;
+            color: #842029;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+
+        /* =====================================================
+           PAYMENT FLOW BOX
+        ===================================================== */
+
+        .payment-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .flow-step {
+            background: #e9ecef;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .flow-step.pass {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .flow-arrow {
+            font-weight: bold;
+            color: #6c757d;
+        }
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+            text-align: center;
+            color: #777;
+            padding: 20px;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 98%;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-<h1>Invoice Management Automation Test Report</h1>
+<div class="container">
 
-<p>
-    <strong>Execution Date:</strong>
-    17 August 2026
-</p>
 
-<p>
-    <strong>Overall Status:</strong>
-    <span class="passed">PASSED</span>
-</p>
+    <!-- =====================================================
+         REPORT HEADER
+    ====================================================== -->
 
-<table>
+    <div class="header">
 
-<tr>
-    <th>Step</th>
-    <th>Description</th>
-    <th>Status</th>
-</tr>
+        <h1>
+            Invoice Management Payment Automation Test Report
+        </h1>
 
-<tr>
-    <td>1</td>
-    <td>Open Invorush Application</td>
-    <td class="passed">PASS</td>
-</tr>
+        <p>
+            <strong>Automation Framework:</strong>
+            Playwright + Python
+        </p>
 
-<tr>
-    <td>2</td>
-    <td>Login</td>
-    <td class="passed">PASS</td>
-</tr>
+        <p>
+            <strong>Test Module:</strong>
+            Invoice Management & Payment
+        </p>
 
-<tr>
-    <td>3</td>
-    <td>Open Invoice List</td>
-    <td class="passed">PASS</td>
-</tr>
+        <p>
+            <strong>Test Flow:</strong>
+            Authentication →
+            Invoice Creation →
+            OCR Validation →
+            Checker Configuration →
+            Invoice Raise →
+            Payment →
+            HDFC Gateway →
+            Secondary Payment Window →
+            Transaction Validation
+        </p>
 
-<tr>
-    <td>4</td>
-    <td>Create Invoice</td>
-    <td class="passed">PASS</td>
-</tr>
+        <p>
+            <strong>Execution Start:</strong>
+            <span id="startTime">-</span>
+        </p>
 
-<tr>
-    <td>5</td>
-    <td>Select Organization</td>
-    <td class="passed">PASS</td>
-</tr>
+        <p>
+            <strong>Execution End:</strong>
+            <span id="endTime">-</span>
+        </p>
 
-<tr>
-    <td>6</td>
-    <td>Upload Invoice PDF</td>
-    <td class="passed">PASS</td>
-</tr>
+        <p>
+            <strong>Execution Duration:</strong>
+            <span id="executionDuration">-</span>
+        </p>
 
-<tr>
-    <td>7</td>
-    <td>OCR Processing</td>
-    <td class="passed">PASS</td>
-</tr>
+        <div id="overallStatus"
+             class="overall-status overall-pass">
 
-<tr>
-    <td>8</td>
-    <td>Invoice Field Validation</td>
-    <td class="passed">PASS</td>
-</tr>
+            Overall Status: PASS
 
-<tr>
-    <td>9</td>
-    <td>Checker Configuration</td>
-    <td class="passed">PASS</td>
-</tr>
+        </div>
 
-</table>
+    </div>
+
+
+    <!-- =====================================================
+         SUMMARY
+    ====================================================== -->
+
+    <div class="summary">
+
+        <div class="summary-card total">
+
+            <h2 id="totalTests">
+                0
+            </h2>
+
+            <p>
+                Total Validations
+            </p>
+
+        </div>
+
+
+        <div class="summary-card passed">
+
+            <h2 id="passedTests">
+                0
+            </h2>
+
+            <p>
+                Passed
+            </p>
+
+        </div>
+
+
+        <div class="summary-card failed">
+
+            <h2 id="failedTests">
+                0
+            </h2>
+
+            <p>
+                Failed
+            </p>
+
+        </div>
+
+
+        <div class="summary-card warnings">
+
+            <h2 id="warningTests">
+                0
+            </h2>
+
+            <p>
+                Warnings
+            </p>
+
+        </div>
+
+
+        <div class="summary-card duration">
+
+            <h2 id="durationSeconds">
+                0s
+            </h2>
+
+            <p>
+                Execution Time
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TEST EXECUTION INFORMATION
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            Test Execution Information
+        </h2>
+
+        <table class="info-table">
+
+            <tr>
+                <td>Application</td>
+                <td>Invorush</td>
+            </tr>
+
+            <tr>
+                <td>Environment</td>
+                <td>Development</td>
+            </tr>
+
+            <tr>
+                <td>Application URL</td>
+                <td>
+                    https://org.dev.invorush.com/
+                </td>
+            </tr>
+
+            <tr>
+                <td>Browser</td>
+                <td>Chromium</td>
+            </tr>
+
+            <tr>
+                <td>Browser Mode</td>
+                <td>Headed</td>
+            </tr>
+
+            <tr>
+                <td>Test Type</td>
+                <td>
+                    Functional + OCR + Payment Validation
+                </td>
+            </tr>
+
+            <tr>
+                <td>Payment Gateway</td>
+                <td>
+                    HDFC Payment Gateway
+                </td>
+            </tr>
+
+            <tr>
+                <td>Popup Windows</td>
+                <td>
+                    Main Application → HDFC Gateway →
+                    Secondary Payment Window
+                </td>
+            </tr>
+
+            <tr>
+                <td>Test Status</td>
+                <td>
+                    <span class="status status-pass"
+                          id="testStatus">
+                        PASS
+                    </span>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- =====================================================
+         PAYMENT WINDOW ARCHITECTURE
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            Payment Window Flow
+        </h2>
+
+        <div class="payment-flow">
+
+            <div class="flow-step pass">
+                Main Application
+            </div>
+
+            <div class="flow-arrow">
+                →
+            </div>
+
+            <div class="flow-step pass">
+                Pay Securely Now
+            </div>
+
+            <div class="flow-arrow">
+                →
+            </div>
+
+            <div class="flow-step pass">
+                HDFC Payment Gateway
+            </div>
+
+            <div class="flow-arrow">
+                →
+            </div>
+
+            <div class="flow-step pass">
+                Proceed to Pay
+            </div>
+
+            <div class="flow-arrow">
+                →
+            </div>
+
+            <div class="flow-step pass">
+                Secure & Pay
+            </div>
+
+            <div class="flow-arrow">
+                →
+            </div>
+
+            <div class="flow-step pass">
+                Click to Proceed
+            </div>
+
+            <div class="flow-arrow">
+                →
+            </div>
+
+            <div class="flow-step pass">
+                New Payment Window
+            </div>
+
+            <div class="flow-arrow">
+                →
+            </div>
+
+            <div class="flow-step pass">
+                Charged
+            </div>
+
+            <div class="flow-arrow">
+                →
+            </div>
+
+            <div class="flow-step pass">
+                Submit
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PROGRESS
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            Test Execution Progress
+        </h2>
+
+        <div class="progress-container">
+
+            <div id="progressBar"
+                 class="progress-bar">
+            </div>
+
+        </div>
+
+        <p>
+
+            <strong>
+                Completion:
+            </strong>
+
+            <span id="completionPercentage">
+                0%
+            </span>
+
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         1. AUTHENTICATION
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            1. Authentication & Application Validation
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Test Step</th>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                        <th>Execution Time</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>1</td>
+
+                        <td>
+                            Open Application
+                        </td>
+
+                        <td>
+                            Application should open successfully
+                        </td>
+
+                        <td>
+                            Application opened successfully
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Development application URL loaded.
+                        </td>
+
+                        <td>-</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>2</td>
+
+                        <td>
+                            Email Field
+                        </td>
+
+                        <td>
+                            Email field should be visible
+                        </td>
+
+                        <td>
+                            Email field visible
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Located using name='email'.
+                        </td>
+
+                        <td>-</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>3</td>
+
+                        <td>
+                            Password Field
+                        </td>
+
+                        <td>
+                            Password field should be visible
+                        </td>
+
+                        <td>
+                            Password field visible
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Password field located successfully.
+                        </td>
+
+                        <td>-</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>4</td>
+
+                        <td>
+                            Sign In
+                        </td>
+
+                        <td>
+                            User should login successfully
+                        </td>
+
+                        <td>
+                            Login completed
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Sign In action completed successfully.
+                        </td>
+
+                        <td>-</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>5</td>
+
+                        <td>
+                            Invoice List Visibility
+                        </td>
+
+                        <td>
+                            Invoice List should be visible
+                        </td>
+
+                        <td>
+                            Invoice List visible
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Authentication verification completed.
+                        </td>
+
+                        <td>-</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         2. INVOICE CREATION
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            2. Invoice Creation Flow
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Validation</th>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>6</td>
+
+                        <td>
+                            Invoice List Navigation
+                        </td>
+
+                        <td>
+                            Invoice List should open
+                        </td>
+
+                        <td>
+                            Invoice List opened
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Invoice List navigation completed.
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>7</td>
+
+                        <td>
+                            Create Invoice Button
+                        </td>
+
+                        <td>
+                            Create Invoice should be visible
+                        </td>
+
+                        <td>
+                            Create Invoice visible
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Create Invoice locator found.
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>8</td>
+
+                        <td>
+                            Create Invoice
+                        </td>
+
+                        <td>
+                            Create Invoice page should open
+                        </td>
+
+                        <td>
+                            Create Invoice clicked
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Invoice creation started.
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>9</td>
+
+                        <td>
+                            Proceed / Next
+                        </td>
+
+                        <td>
+                            Next step should open
+                        </td>
+
+                        <td>
+                            Next clicked
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Proceed action completed.
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>10</td>
+
+                        <td>
+                            Organization Search
+                        </td>
+
+                        <td>
+                            Organization search should be available
+                        </td>
+
+                        <td>
+                            Organization selector opened
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Organization selector successfully opened.
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>11</td>
+
+                        <td>
+                            Organization Selection
+                        </td>
+
+                        <td>
+                            Organization should be selected
+                        </td>
+
+                        <td>
+                            NEW SCENARIC TRAVELS LLP selected
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Organization selected successfully.
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>12</td>
+
+                        <td>
+                            Next to Upload Invoice
+                        </td>
+
+                        <td>
+                            Upload Invoice page should open
+                        </td>
+
+                        <td>
+                            Upload Invoice page opened
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Successfully moved to upload page.
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         3. PDF UPLOAD
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            3. Invoice PDF Upload & OCR Processing
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Validation</th>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>13</td>
+
+                        <td>
+                            File Input
+                        </td>
+
+                        <td>
+                            File input should be attached
+                        </td>
+
+                        <td>
+                            File input attached
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            input#file located successfully.
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>14</td>
+
+                        <td>
+                            PDF Upload
+                        </td>
+
+                        <td>
+                            Invoice PDF should upload
+                        </td>
+
+                        <td>
+                            PDF uploaded
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Invoice PDF successfully attached.
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>15</td>
+
+                        <td>
+                            Submit Button
+                        </td>
+
+                        <td>
+                            Submit button should be enabled
+                        </td>
+
+                        <td>
+                            Submit button enabled
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Button enabled-state validation passed.
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>16</td>
+
+                        <td>
+                            Submit PDF
+                        </td>
+
+                        <td>
+                            PDF should be submitted for OCR
+                        </td>
+
+                        <td>
+                            PDF submitted
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            OCR processing initiated.
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>17</td>
+
+                        <td>
+                            Invoice Form
+                        </td>
+
+                        <td>
+                            Invoice Form should become visible
+                        </td>
+
+                        <td>
+                            Invoice Form visible
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            OCR processing completed successfully.
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         4. OCR VALIDATION
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            4. OCR Field Validation
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Field</th>
+                        <th>Expected</th>
+                        <th>OCR Value</th>
+                        <th>Fallback Value</th>
+                        <th>Final Value</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>18</td>
+
+                        <td class="field-name">
+                            Invoice Number
+                        </td>
+
+                        <td>
+                            OCR should populate invoice number
+                        </td>
+
+                        <td>
+                            30585
+                        </td>
+
+                        <td>
+                            13856
+                        </td>
+
+                        <td>
+                            30585
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            OCR value found. Fallback not required.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>19</td>
+
+                        <td class="field-name">
+                            Invoice Issue Date
+                        </td>
+
+                        <td>
+                            OCR should populate issue date
+                        </td>
+
+                        <td>
+                            -
+                        </td>
+
+                        <td>
+                            June 13, 2026
+                        </td>
+
+                        <td>
+                            June 13, 2026
+                        </td>
+
+                        <td>
+                            <span class="status status-warning">
+                                WARNING
+                            </span>
+                        </td>
+
+                        <td>
+                            OCR value unavailable; manual fallback used.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>20</td>
+
+                        <td class="field-name">
+                            Invoice Due Date
+                        </td>
+
+                        <td>
+                            OCR should populate due date
+                        </td>
+
+                        <td>
+                            -
+                        </td>
+
+                        <td>
+                            September 13, 2026
+                        </td>
+
+                        <td>
+                            September 13, 2026
+                        </td>
+
+                        <td>
+                            <span class="status status-warning">
+                                WARNING
+                            </span>
+                        </td>
+
+                        <td>
+                            OCR value unavailable; manual fallback used.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>21</td>
+
+                        <td class="field-name">
+                            Invoice Amount
+                        </td>
+
+                        <td>
+                            OCR should populate amount
+                        </td>
+
+                        <td>
+                            2631.48
+                        </td>
+
+                        <td>
+                            2631.48
+                        </td>
+
+                        <td>
+                            2631.48
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            OCR amount found successfully.
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         5. FINAL FIELD VALIDATION
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            5. Final Mandatory Invoice Field Validation
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="field-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Field</th>
+                        <th>Mandatory</th>
+                        <th>Final Value</th>
+                        <th>Validation</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td class="field-name">
+                            Invoice Number
+                        </td>
+
+                        <td>YES</td>
+
+                        <td>
+                            30585
+                        </td>
+
+                        <td>
+                            Value is not empty
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td class="field-name">
+                            Invoice Issue Date
+                        </td>
+
+                        <td>YES</td>
+
+                        <td>
+                            June 13, 2026
+                        </td>
+
+                        <td>
+                            Date is populated
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td class="field-name">
+                            Invoice Due Date
+                        </td>
+
+                        <td>YES</td>
+
+                        <td>
+                            September 13, 2026
+                        </td>
+
+                        <td>
+                            Date is populated
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td class="field-name">
+                            Invoice Amount
+                        </td>
+
+                        <td>YES</td>
+
+                        <td>
+                            2631.48
+                        </td>
+
+                        <td>
+                            Value is not empty
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         6. INVOICE FORM
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            6. Invoice Form Submission
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Validation</th>
+                        <th>Expected</th>
+                        <th>Actual</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>22</td>
+
+                        <td>
+                            Mandatory Field Validation
+                        </td>
+
+                        <td>
+                            No mandatory field should be empty
+                        </td>
+
+                        <td>
+                            All mandatory fields populated
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>23</td>
+
+                        <td>
+                            Invoice Form Next
+                        </td>
+
+                        <td>
+                            Next should be enabled
+                        </td>
+
+                        <td>
+                            Next button enabled
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>24</td>
+
+                        <td>
+                            Invoice Form Submission
+                        </td>
+
+                        <td>
+                            Form should submit successfully
+                        </td>
+
+                        <td>
+                            Invoice Form submitted
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         7. CHECKER CONFIGURATION
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            7. Checker Configuration Validation
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Validation</th>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>25</td>
+
+                        <td>
+                            Checkers Config Page
+                        </td>
+
+                        <td>
+                            Checkers Config should be visible
+                        </td>
+
+                        <td>
+                            Checkers Config visible
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Checkers Config page loaded successfully.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>26</td>
+
+                        <td>
+                            No Checker Option
+                        </td>
+
+                        <td>
+                            No checker verification option should be visible
+                        </td>
+
+                        <td>
+                            Option visible
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Checker option located successfully.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>27</td>
+
+                        <td>
+                            Checker Selection
+                        </td>
+
+                        <td>
+                            No checker verification should be selected
+                        </td>
+
+                        <td>
+                            Option selected
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Checker configuration selected successfully.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>28</td>
+
+                        <td>
+                            Checker Next
+                        </td>
+
+                        <td>
+                            Next button should be available
+                        </td>
+
+                        <td>
+                            Next clicked
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Successfully moved to Invoice Summary.
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         8. INVOICE SUMMARY & RAISE
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            8. Invoice Summary, Raise Invoice & Payment Navigation
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Validation</th>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>29</td>
+
+                        <td>
+                            Invoice Summary Page
+                        </td>
+
+                        <td>
+                            Invoice Summary should be displayed
+                        </td>
+
+                        <td>
+                            Invoice Summary displayed
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Invoice summary loaded successfully.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>30</td>
+
+                        <td>
+                            List Invoices Button
+                        </td>
+
+                        <td>
+                            List Invoices button should be available
+                        </td>
+
+                        <td>
+                            List Invoices clicked
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Returned to invoice list successfully.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>31</td>
+
+                        <td>
+                            Invoice Three-Dot Menu
+                        </td>
+
+                        <td>
+                            Invoice action menu should open
+                        </td>
+
+                        <td>
+                            Three-dot menu opened
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Specific invoice action menu opened.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>32</td>
+
+                        <td>
+                            Raise Invoice
+                        </td>
+
+                        <td>
+                            Raise Invoice option should be available
+                        </td>
+
+                        <td>
+                            Invoice raised successfully
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Raise Invoice action completed.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>33</td>
+
+                        <td>
+                            Payment Navigation
+                        </td>
+
+                        <td>
+                            Payment option should be available
+                        </td>
+
+                        <td>
+                            Payment option clicked
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Payment flow initiated.
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         9. PAYMENT PAGE
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            9. Payment Page Validation
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Validation</th>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>34</td>
+
+                        <td>
+                            Pay Securely Now Button
+                        </td>
+
+                        <td>
+                            Pay Securely Now should be visible
+                        </td>
+
+                        <td>
+                            Button visible
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Payment gateway launch button located.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>35</td>
+
+                        <td>
+                            Pay Securely Now Click
+                        </td>
+
+                        <td>
+                            HDFC payment window should open
+                        </td>
+
+                        <td>
+                            HDFC window opened
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            First popup captured using expect_popup().
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         10. HDFC PAYMENT WINDOW
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            10. HDFC Payment Gateway Window Validation
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Validation</th>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>36</td>
+
+                        <td>
+                            HDFC Payment Window
+                        </td>
+
+                        <td>
+                            HDFC payment window should be available
+                        </td>
+
+                        <td>
+                            HDFC payment window opened
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            popup_info.value successfully assigned to hdfc_page.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>37</td>
+
+                        <td>
+                            HDFC Page Load
+                        </td>
+
+                        <td>
+                            HDFC page should load
+                        </td>
+
+                        <td>
+                            HDFC page loaded
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            domcontentloaded state reached.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>38</td>
+
+                        <td>
+                            Add Credit/Debit Cards
+                        </td>
+
+                        <td>
+                            Add Credit/Debit Cards should be visible
+                        </td>
+
+                        <td>
+                            Add Credit/Debit Cards visible
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Card payment method selected.
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         11. CARD DETAILS
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            11. Card Details Validation
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="field-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Field</th>
+                        <th>Expected</th>
+                        <th>Actual</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>39</td>
+
+                        <td class="field-name">
+                            Card Number
+                        </td>
+
+                        <td>
+                            Card number field should accept value
+                        </td>
+
+                        <td>
+                            Card number entered
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>40</td>
+
+                        <td class="field-name">
+                            Expiry Date
+                        </td>
+
+                        <td>
+                            MM/YY field should accept value
+                        </td>
+
+                        <td>
+                            Expiry date entered
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>41</td>
+
+                        <td class="field-name">
+                            CVV
+                        </td>
+
+                        <td>
+                            CVV field should accept value
+                        </td>
+
+                        <td>
+                            CVV entered
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>42</td>
+
+                        <td class="field-name">
+                            Name on Card
+                        </td>
+
+                        <td>
+                            Cardholder name should accept value
+                        </td>
+
+                        <td>
+                            Cardholder name entered
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         12. HDFC PAYMENT PROCESS
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            12. HDFC Payment Processing Validation
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Validation</th>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>43</td>
+
+                        <td>
+                            Proceed to Pay
+                        </td>
+
+                        <td>
+                            Proceed to Pay should be clickable
+                        </td>
+
+                        <td>
+                            Proceed to Pay clicked
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Payment details submitted.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>44</td>
+
+                        <td>
+                            Secure & Pay
+                        </td>
+
+                        <td>
+                            Secure & Pay should become visible
+                        </td>
+
+                        <td>
+                            Secure & Pay clicked
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            HDFC secure payment step completed.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>45</td>
+
+                        <td>
+                            Click to Proceed Visibility
+                        </td>
+
+                        <td>
+                            Click to Proceed should be visible
+                        </td>
+
+                        <td>
+                            Click to Proceed visible
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Secondary payment flow trigger located.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>46</td>
+
+                        <td>
+                            Click to Proceed
+                        </td>
+
+                        <td>
+                            A new payment window should open
+                        </td>
+
+                        <td>
+                            New payment window opened
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Second popup captured using
+                            hdfc_page.expect_popup().
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         13. SECOND PAYMENT WINDOW
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            13. Secondary Payment Window Validation
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Validation</th>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>47</td>
+
+                        <td>
+                            New Window Object
+                        </td>
+
+                        <td>
+                            Second popup should be captured
+                        </td>
+
+                        <td>
+                            new_page created successfully
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            popup_info_2.value assigned to new_page.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>48</td>
+
+                        <td>
+                            Secondary Window Load
+                        </td>
+
+                        <td>
+                            New window should load successfully
+                        </td>
+
+                        <td>
+                            New window loaded
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            domcontentloaded state reached successfully.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>49</td>
+
+                        <td>
+                            Transaction State Dropdown
+                        </td>
+
+                        <td>
+                            Transaction state dropdown should be visible
+                        </td>
+
+                        <td>
+                            Dropdown visible
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            txnStateDropdownText located successfully.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>50</td>
+
+                        <td>
+                            Open Transaction State
+                        </td>
+
+                        <td>
+                            Transaction state options should appear
+                        </td>
+
+                        <td>
+                            Dropdown opened
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Transaction state dropdown opened.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>51</td>
+
+                        <td>
+                            Charged Option
+                        </td>
+
+                        <td>
+                            CHARGED option should be available
+                        </td>
+
+                        <td>
+                            CHARGED selected
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            data-value='CHARGED' option selected.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>52</td>
+
+                        <td>
+                            Submit Payment State
+                        </td>
+
+                        <td>
+                            Submit button should be visible
+                        </td>
+
+                        <td>
+                            Submit button visible
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            submitButton located successfully.
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>53</td>
+
+                        <td>
+                            Submit Transaction
+                        </td>
+
+                        <td>
+                            Transaction should submit successfully
+                        </td>
+
+                        <td>
+                            Transaction submitted
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                        <td>
+                            Final payment transaction state submitted.
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         14. FINAL PAYMENT VALIDATION
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            14. Final Payment Flow Validation
+        </h2>
+
+        <table class="info-table">
+
+            <tr>
+
+                <td>
+                    Application
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Authentication
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Invoice Creation
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    PDF Upload
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    OCR Processing
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Invoice Number Validation
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Invoice Issue Date Validation
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Invoice Due Date Validation
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Invoice Amount Validation
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Mandatory Field Validation
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Invoice Form Submission
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Checker Configuration
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Invoice Raised
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Payment Page
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    HDFC Gateway
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Card Details
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Proceed to Pay
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Secure & Pay
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Click to Proceed
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Secondary Payment Window
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Transaction State
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Charged Selection
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Final Transaction Submit
+                </td>
+
+                <td>
+                    <span class="status status-pass">
+                        PASS
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Overall Test
+                </td>
+
+                <td>
+
+                    <strong class="overall-pass">
+                        PASS
+                    </strong>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- =====================================================
+         15. PAYMENT WINDOW VALIDATION SUMMARY
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            15. Multi-Window Payment Validation Summary
+        </h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Window</th>
+                        <th>Purpose</th>
+                        <th>Playwright Object</th>
+                        <th>Trigger</th>
+                        <th>Validation</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            Main Application
+                        </td>
+
+                        <td>
+                            Invoice Management
+                        </td>
+
+                        <td>
+                            page
+                        </td>
+
+                        <td>
+                            Pay Securely Now
+                        </td>
+
+                        <td>
+                            HDFC popup captured
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            HDFC Gateway
+                        </td>
+
+                        <td>
+                            Card Payment
+                        </td>
+
+                        <td>
+                            hdfc_page
+                        </td>
+
+                        <td>
+                            Click to Proceed
+                        </td>
+
+                        <td>
+                            Secondary popup captured
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Secondary Payment Window
+                        </td>
+
+                        <td>
+                            Transaction Simulation
+                        </td>
+
+                        <td>
+                            new_page
+                        </td>
+
+                        <td>
+                            Submit
+                        </td>
+
+                        <td>
+                            CHARGED transaction submitted
+                        </td>
+
+                        <td>
+                            <span class="status status-pass">
+                                PASS
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ERRORS
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>
+            Errors / Exceptions
+        </h2>
+
+        <div id="errorContainer">
+
+            <p>
+                No errors reported.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <div class="footer">
+
+        Invoice Management Payment Automation Report
+
+        <br>
+
+        Generated by Playwright + Python
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+    /* ============================================================
+       REPORT DATA
+    ============================================================
+
+       These values can later be generated dynamically
+       from your Python Playwright test.
+
+    ============================================================ */
+
+    const report = {
+
+        startTime:
+            new Date().toLocaleString(),
+
+        endTime:
+            new Date().toLocaleString(),
+
+        durationSeconds:
+            0,
+
+        totalTests:
+            53,
+
+        passedTests:
+            51,
+
+        failedTests:
+            0,
+
+        warningTests:
+            2
+
+    };
+
+
+    /* ============================================================
+       UPDATE SUMMARY
+    ============================================================ */
+
+    document.getElementById(
+        "totalTests"
+    ).innerText =
+        report.totalTests;
+
+
+    document.getElementById(
+        "passedTests"
+    ).innerText =
+        report.passedTests;
+
+
+    document.getElementById(
+        "failedTests"
+    ).innerText =
+        report.failedTests;
+
+
+    document.getElementById(
+        "warningTests"
+    ).innerText =
+        report.warningTests;
+
+
+    document.getElementById(
+        "durationSeconds"
+    ).innerText =
+        report.durationSeconds + "s";
+
+
+    document.getElementById(
+        "startTime"
+    ).innerText =
+        report.startTime;
+
+
+    document.getElementById(
+        "endTime"
+    ).innerText =
+        report.endTime;
+
+
+    /* ============================================================
+       EXECUTION DURATION
+    ============================================================ */
+
+    document.getElementById(
+        "executionDuration"
+    ).innerText =
+        report.durationSeconds + " seconds";
+
+
+    /* ============================================================
+       COMPLETION %
+    ============================================================ */
+
+    let completion = 0;
+
+
+    if (report.totalTests > 0) {
+
+        completion =
+            (
+                (
+                    report.passedTests +
+                    report.failedTests +
+                    report.warningTests
+                )
+                /
+                report.totalTests
+            ) * 100;
+
+    }
+
+
+    document.getElementById(
+        "completionPercentage"
+    ).innerText =
+        Math.round(completion) + "%";
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        completion + "%";
+
+
+    /* ============================================================
+       OVERALL STATUS
+    ============================================================ */
+
+    const overallStatus =
+        document.getElementById(
+            "overallStatus"
+        );
+
+
+    const testStatus =
+        document.getElementById(
+            "testStatus"
+        );
+
+
+    if (report.failedTests > 0) {
+
+        overallStatus.innerText =
+            "Overall Status: FAIL";
+
+
+        overallStatus.className =
+            "overall-status overall-fail";
+
+
+        testStatus.innerText =
+            "FAIL";
+
+
+        testStatus.className =
+            "status status-fail";
+
+    }
+
+    else if (report.warningTests > 0) {
+
+        overallStatus.innerText =
+            "Overall Status: PASS WITH WARNINGS";
+
+
+        overallStatus.className =
+            "overall-status overall-warning";
+
+
+        testStatus.innerText =
+            "PASS WITH WARNINGS";
+
+
+        testStatus.className =
+            "status status-warning";
+
+    }
+
+    else {
+
+        overallStatus.innerText =
+            "Overall Status: PASS";
+
+
+        overallStatus.className =
+            "overall-status overall-pass";
+
+
+        testStatus.innerText =
+            "PASS";
+
+
+        testStatus.className =
+            "status status-pass";
+
+    }
+
+</script>
+
 
 </body>
-</html>
-""")
 
-print(f"HTML report generated: {report_file}")
+</html>

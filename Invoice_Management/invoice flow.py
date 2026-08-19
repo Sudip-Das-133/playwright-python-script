@@ -165,7 +165,7 @@ with sync_playwright() as p:
     page.locator(
         "//input[@name='email']"
     ).fill(
-        "sapphiro.consulting@gmail.com"
+        "coal@mailinator.com"
     )
 
     page.locator(
@@ -229,7 +229,7 @@ with sync_playwright() as p:
     # ========================================================
 
     proceed_button = page.locator(
-        "//span[normalize-space()='Proceed']"
+        "//span[text()='Next']"
     )
 
     proceed_button.wait_for(
@@ -604,8 +604,310 @@ with sync_playwright() as p:
     print("INVOICE OCR FLOW COMPLETED")
     print("========================================")
 
+    #  ==========================================================================================
+
+    print("\n========================================")
+    print("Select checker in Checker configure  Page :")
+    print("========================================")
+
+    Select_checker_config = page.locator("//span[text()='(No checker verification required.)']")
+    Select_checker_config.click()
+    time.sleep(3)
+
+    print("Sucessfully checker configuration selected ")
+
+    ## click on  the 'Next' button in the Checker configuration page :
+
+    click_next_button = page.locator("//button[text()='Next']")
+    click_next_button.click()
+    time.sleep(3)
+
+    print("✓ Successfully moved to Invoice summary page .")
+
+
+    #  ===================================================================
+    ### In the 'Invoice summary' page  click on the 'List Invoices' button :
+    #  ====================================================================
+
+
+    List_invoice_button = page.locator("//button[@type='button' and normalize-space()='List Invoices']")
+    List_invoice_button.click()
+    time.sleep(3)
+
+    print("✓ Successfully clicked on the 'List Invoices' button")
+
+
+    # ===========================================================
+    #  click on the three dot option of every specific invoice :
+    # ===========================================================
+
+
+    three_dot = page.locator("//button[@data-slot='dropdown-menu-trigger']").nth(3)
+    three_dot.click()
+    time.sleep(3)
+
+
+    # =======================================================
+    ## click on the 'raised option' button :
+    # =======================================================
+
+
+    Raised_option_button = page.locator("//div[@role='menuitem' and normalize-space()='Raise Invoice']")
+    Raised_option_button.click()
+    time.sleep(3)
+    print("Sucessfully clicked on the 'Raise Invoice' button and invoice raised")
+
+
+    # ===========================================================
+    ###  click on the payment option of the specific option :
+    # ===========================================================
+
+    payment_option = page.locator("//a[normalize-space()='Payment']")
+    payment_option.click()
+    time.sleep(3)
+    print("Successfully clicked on the 'Payment' option  button and invoice raised for the payment ")
 
 
 
+    # ============================================================
+    # CLICK "PAY SECURELY NOW" AND OPEN HDFC PAYMENT WINDOW
+    # ============================================================
 
-    browser.close()
+    Pay_secure_button = page.locator(
+        "//button[normalize-space()='Pay Securely Now']"
+    )
+
+    Pay_secure_button.wait_for(
+        state="visible",
+        timeout=30000
+    )
+    # ===============================================
+    # Pay Securely Now opens the HDFC payment window
+    # ===============================================
+
+    with page.expect_popup(timeout=30000) as popup_info:
+        Pay_secure_button.click()
+
+    print("✓ Pay Securely Now clicked")
+
+    # ============================================================
+    # GET HDFC PAYMENT WINDOW
+    # ============================================================
+
+    hdfc_page = popup_info.value
+
+    print("✓ HDFC payment window opened")
+
+    # Wait for HDFC page to load
+    hdfc_page.wait_for_load_state(
+        "domcontentloaded",
+        timeout=30000
+    )
+
+    print("HDFC Title:", hdfc_page.title())
+    print("HDFC URL:", hdfc_page.url)
+
+    # ============================================================
+    # CLICK "ADD CREDIT/DEBIT CARDS"
+    # ============================================================
+
+    Add_credit_card = hdfc_page.get_by_text(
+        "Add Credit/Debit Cards",
+        exact=True
+    )
+
+    Add_credit_card.wait_for(
+        state="visible",
+        timeout=30000
+    )
+
+    Add_credit_card.click()
+
+    print("✓ Add Credit/Debit Cards clicked")
+
+    # ============================================================
+    # ENTER CARD NUMBER
+    # ============================================================
+
+    card_number = hdfc_page.get_by_placeholder('Enter Card Number')
+
+    card_number.wait_for(
+        state="visible",
+        timeout=30000
+    )
+
+    card_number.fill(
+        "4012 0000 0000 1097"
+    )
+
+    print("✓ Card number entered")
+
+    # ============================================================
+    # ENTER EXPIRY DATE
+    # ============================================================
+
+    expiry_date = hdfc_page.get_by_placeholder("MM/YY")
+
+    expiry_date.wait_for(
+        state="visible",
+        timeout=30000
+    )
+
+    expiry_date.fill(
+        "09/32"
+    )
+
+    print("✓ Expiry date entered")
+
+    # ============================================================
+    # ENTER CVV
+    # ============================================================
+
+    cvv_number = hdfc_page.get_by_placeholder('Enter CVV')
+
+    cvv_number.wait_for(
+        state="visible",
+        timeout=30000
+    )
+
+    cvv_number.fill(
+        "123"
+    )
+
+    print("✓ CVV entered")
+
+
+    # ===========================================================
+    # FILL NAME ON THE CARD :
+    # ===========================================================
+
+    Name_of_Card = hdfc_page.get_by_placeholder("Enter your name on card")
+    Name_of_Card.wait_for(
+        state="visible",
+        timeout=30000
+    )
+    Name_of_Card.fill('aaaaa')
+
+    # ============================================================
+    # CLICK "PROCEED TO PAY"
+    # ============================================================
+
+    Proceed_to_pay_button = hdfc_page.locator(
+        "//article[contains(normalize-space(.), 'proceed to pay')]"
+    )
+
+    Proceed_to_pay_button.wait_for(
+        state="visible",
+        timeout=30000
+    )
+
+    Proceed_to_pay_button.click()
+
+    print("✓ Proceed to Pay clicked")
+
+    # ============================================================
+    # WAIT FOR PAYMENT PROCESSING
+    # ============================================================
+
+
+    #  ===================================
+    ## click on the 'Secure & Pay' button :
+    #  ====================================
+
+
+    Secure_and_pay_button = hdfc_page.locator("//article[text()='Secure & Pay']")
+    Secure_and_pay_button.wait_for(
+        state="visible",
+        timeout=30000
+    )
+    Secure_and_pay_button.click()
+
+    # ============================================================
+    # HDFC -> NEW WINDOW
+    #
+    # THIS IS THE IMPORTANT PART
+    # ============================================================
+
+
+    # ========================================================================
+    # click on the 'Click to proceed' button to move forward with new windows
+    # =========================================================================
+
+    Click_to_Proceed_button = hdfc_page.locator(
+        "//article[normalize-space()='Click to proceed']"
+    )
+
+    Click_to_Proceed_button.wait_for(
+        state="visible",
+        timeout=30000
+    )
+
+    print("✓ Click to proceed button found")
+
+    # =====================================================
+    # Capture the NEW WINDOW opened by "Click to proceed"
+    # ======================================================
+
+    with hdfc_page.expect_popup(timeout=30000) as popup_info_2:
+
+        Click_to_Proceed_button.click()
+
+    print("✓ Click to proceed clicked")
+
+    # ============================================================
+    # GET THE NEW WINDOW
+    # ============================================================
+
+    new_page = popup_info_2.value
+
+    print("✓ New window opened")
+
+    new_page.wait_for_load_state(
+        "domcontentloaded",
+        timeout=30000
+    )
+
+    print("New Window URL:", new_page.url)
+    print("New Window Title:", new_page.title())
+
+    # ============================================================
+    # NOW WORK INSIDE THE NEW WINDOW
+    # ============================================================
+
+    ## click on the transaction state dropdown :
+    select_transaction_state = new_page.locator("//div[@id ='txnStateDropdownText']")
+    select_transaction_state.wait_for(
+        state="visible",
+        timeout=30000
+    )
+    select_transaction_state.click()
+
+    # ============================================
+    ##   Select the 'Charged' option from the dropdown :
+    # =============================================
+
+
+    option_selection = new_page.locator("//li[@class='dropdown-item' and @data-value='CHARGED']")
+    option_selection.wait_for(
+        state="visible",
+        timeout=30000
+    )
+
+    option_selection.click()
+
+    # ========================================
+    ### click on the Submit button :
+    # ========================================
+
+
+    Submit_button_click = new_page.locator("//button[@id ='submitButton']")
+    Submit_button_click.wait_for(
+        state="visible",
+        timeout=30000
+    )
+    Submit_button_click.click()
+    time.sleep(5)
+
+    print("Invoice flow completed without checker configuration and partial payment :")
+    print("=============================================================================")
+
