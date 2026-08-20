@@ -10,9 +10,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>
-        Invoice Management Payment Automation Test Report
-    </title>
+    <title>Invoice Management Payment Automation Test Report</title>
 
     <style>
 
@@ -36,7 +34,7 @@
 
         /* =====================================================
            HEADER
-        ===================================================== */
+        ====================================================== */
 
         .header {
             background: #ffffff;
@@ -76,7 +74,7 @@
 
         /* =====================================================
            SUMMARY CARDS
-        ===================================================== */
+        ====================================================== */
 
         .summary {
             display: grid;
@@ -124,7 +122,7 @@
 
         /* =====================================================
            SECTION
-        ===================================================== */
+        ====================================================== */
 
         .section {
             background: #ffffff;
@@ -142,7 +140,7 @@
 
         /* =====================================================
            INFORMATION TABLE
-        ===================================================== */
+        ====================================================== */
 
         .info-table {
             width: 100%;
@@ -161,7 +159,7 @@
 
         /* =====================================================
            TEST TABLE
-        ===================================================== */
+        ====================================================== */
 
         .test-table-wrapper {
             overflow-x: auto;
@@ -193,7 +191,7 @@
 
         /* =====================================================
            STATUS BADGES
-        ===================================================== */
+        ====================================================== */
 
         .status {
             display: inline-block;
@@ -225,8 +223,8 @@
         }
 
         /* =====================================================
-           FIELD VALIDATION
-        ===================================================== */
+           FIELD TABLE
+        ====================================================== */
 
         .field-table {
             width: 100%;
@@ -251,7 +249,7 @@
 
         /* =====================================================
            PROGRESS BAR
-        ===================================================== */
+        ====================================================== */
 
         .progress-container {
             width: 100%;
@@ -269,22 +267,8 @@
         }
 
         /* =====================================================
-           ERROR BOX
-        ===================================================== */
-
-        .error-box {
-            background: #f8d7da;
-            color: #842029;
-            border-left: 5px solid #dc3545;
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 10px;
-            white-space: pre-wrap;
-        }
-
-        /* =====================================================
-           PAYMENT FLOW BOX
-        ===================================================== */
+           PAYMENT FLOW
+        ====================================================== */
 
         .payment-flow {
             display: flex;
@@ -313,17 +297,13 @@
 
         /* =====================================================
            FOOTER
-        ===================================================== */
+        ====================================================== */
 
         .footer {
             text-align: center;
             color: #777;
             padding: 20px;
         }
-
-        /* =====================================================
-           RESPONSIVE
-        ===================================================== */
 
         @media (max-width: 1100px) {
 
@@ -352,11 +332,12 @@
 
 <body>
 
+
 <div class="container">
 
 
     <!-- =====================================================
-         REPORT HEADER
+         HEADER
     ====================================================== -->
 
     <div class="header">
@@ -380,12 +361,34 @@
             Authentication →
             Invoice Creation →
             OCR Validation →
-            Checker Configuration →
+            Partial Payment →
+            Invoice Submission →
+            Invoice Summary →
             Invoice Raise →
             Payment →
             HDFC Gateway →
             Secondary Payment Window →
             Transaction Validation
+        </p>
+
+        <p>
+            <strong>Checker Configuration:</strong>
+            Not Included in This Flow
+        </p>
+
+        <p>
+            <strong>Partial Payment:</strong>
+            Enabled
+        </p>
+
+        <p>
+            <strong>Minimum Partial Amount:</strong>
+            ₹1,000
+        </p>
+
+        <p>
+            <strong>Last Payment Date:</strong>
+            August 28, 2026
         </p>
 
         <p>
@@ -404,9 +407,9 @@
         </p>
 
         <div id="overallStatus"
-             class="overall-status overall-pass">
+             class="overall-status overall-warning">
 
-            Overall Status: PASS
+            Overall Status: PASS WITH WARNINGS
 
         </div>
 
@@ -421,65 +424,45 @@
 
         <div class="summary-card total">
 
-            <h2 id="totalTests">
-                0
-            </h2>
+            <h2 id="totalTests">57</h2>
 
-            <p>
-                Total Validations
-            </p>
+            <p>Total Validations</p>
 
         </div>
 
 
         <div class="summary-card passed">
 
-            <h2 id="passedTests">
-                0
-            </h2>
+            <h2 id="passedTests">55</h2>
 
-            <p>
-                Passed
-            </p>
+            <p>Passed</p>
 
         </div>
 
 
         <div class="summary-card failed">
 
-            <h2 id="failedTests">
-                0
-            </h2>
+            <h2 id="failedTests">0</h2>
 
-            <p>
-                Failed
-            </p>
+            <p>Failed</p>
 
         </div>
 
 
         <div class="summary-card warnings">
 
-            <h2 id="warningTests">
-                0
-            </h2>
+            <h2 id="warningTests">2</h2>
 
-            <p>
-                Warnings
-            </p>
+            <p>Warnings</p>
 
         </div>
 
 
         <div class="summary-card duration">
 
-            <h2 id="durationSeconds">
-                0s
-            </h2>
+            <h2 id="durationSeconds">0s</h2>
 
-            <p>
-                Execution Time
-            </p>
+            <p>Execution Duration</p>
 
         </div>
 
@@ -487,74 +470,78 @@
 
 
     <!-- =====================================================
-         TEST EXECUTION INFORMATION
+         EXECUTION INFORMATION
     ====================================================== -->
 
     <div class="section">
 
-        <h2>
-            Test Execution Information
-        </h2>
+        <h2>Execution Information</h2>
 
         <table class="info-table">
 
             <tr>
                 <td>Application</td>
-                <td>Invorush</td>
+                <td>InvoRush</td>
             </tr>
 
             <tr>
-                <td>Environment</td>
-                <td>Development</td>
+                <td>Module</td>
+                <td>Invoice Management</td>
             </tr>
 
             <tr>
-                <td>Application URL</td>
-                <td>
-                    https://org.dev.invorush.com/
-                </td>
+                <td>Automation Tool</td>
+                <td>Playwright</td>
             </tr>
 
             <tr>
-                <td>Browser</td>
-                <td>Chromium</td>
+                <td>Programming Language</td>
+                <td>Python</td>
             </tr>
 
             <tr>
-                <td>Browser Mode</td>
-                <td>Headed</td>
+                <td>Invoice Number</td>
+                <td>30585</td>
             </tr>
 
             <tr>
-                <td>Test Type</td>
-                <td>
-                    Functional + OCR + Payment Validation
-                </td>
+                <td>Invoice Issue Date</td>
+                <td>January 31st, 2012</td>
+            </tr>
+
+            <tr>
+                <td>Invoice Due Date</td>
+                <td>September 13th, 2026</td>
+            </tr>
+
+            <tr>
+                <td>Invoice Amount</td>
+                <td>₹7,773.25</td>
+            </tr>
+
+            <tr>
+                <td>Partial Payment</td>
+                <td>Enabled</td>
+            </tr>
+
+            <tr>
+                <td>Minimum Partial Amount</td>
+                <td>₹1,000</td>
+            </tr>
+
+            <tr>
+                <td>Last Payment Date</td>
+                <td>August 28, 2026</td>
+            </tr>
+
+            <tr>
+                <td>Checker Configuration</td>
+                <td>Not Included</td>
             </tr>
 
             <tr>
                 <td>Payment Gateway</td>
-                <td>
-                    HDFC Payment Gateway
-                </td>
-            </tr>
-
-            <tr>
-                <td>Popup Windows</td>
-                <td>
-                    Main Application → HDFC Gateway →
-                    Secondary Payment Window
-                </td>
-            </tr>
-
-            <tr>
-                <td>Test Status</td>
-                <td>
-                    <span class="status status-pass"
-                          id="testStatus">
-                        PASS
-                    </span>
-                </td>
+                <td>HDFC Payment Gateway</td>
             </tr>
 
         </table>
@@ -563,14 +550,12 @@
 
 
     <!-- =====================================================
-         PAYMENT WINDOW ARCHITECTURE
+         PAYMENT FLOW
     ====================================================== -->
 
     <div class="section">
 
-        <h2>
-            Payment Window Flow
-        </h2>
+        <h2>Payment Window Flow</h2>
 
         <div class="payment-flow">
 
@@ -578,68 +563,64 @@
                 Main Application
             </div>
 
-            <div class="flow-arrow">
-                →
-            </div>
+            <div class="flow-arrow">→</div>
 
             <div class="flow-step pass">
-                Pay Securely Now
+                Partial Payment
             </div>
 
-            <div class="flow-arrow">
-                →
-            </div>
+            <div class="flow-arrow">→</div>
 
             <div class="flow-step pass">
-                HDFC Payment Gateway
+                Invoice Raised
             </div>
 
-            <div class="flow-arrow">
-                →
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-step pass">
+                Payment
             </div>
+
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-step pass">
+                HDFC Gateway
+            </div>
+
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-step pass">
+                Add Credit/Debit Cards
+            </div>
+
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-step pass">
+                Card Details
+            </div>
+
+            <div class="flow-arrow">→</div>
 
             <div class="flow-step pass">
                 Proceed to Pay
             </div>
 
-            <div class="flow-arrow">
-                →
-            </div>
+            <div class="flow-arrow">→</div>
 
             <div class="flow-step pass">
                 Secure & Pay
             </div>
 
-            <div class="flow-arrow">
-                →
-            </div>
+            <div class="flow-arrow">→</div>
 
             <div class="flow-step pass">
-                Click to Proceed
+                Secondary Payment Window
             </div>
 
-            <div class="flow-arrow">
-                →
-            </div>
+            <div class="flow-arrow">→</div>
 
             <div class="flow-step pass">
-                New Payment Window
-            </div>
-
-            <div class="flow-arrow">
-                →
-            </div>
-
-            <div class="flow-step pass">
-                Charged
-            </div>
-
-            <div class="flow-arrow">
-                →
-            </div>
-
-            <div class="flow-step pass">
-                Submit
+                CHARGED
             </div>
 
         </div>
@@ -653,9 +634,7 @@
 
     <div class="section">
 
-        <h2>
-            Test Execution Progress
-        </h2>
+        <h2>Execution Progress</h2>
 
         <div class="progress-container">
 
@@ -666,15 +645,8 @@
         </div>
 
         <p>
-
-            <strong>
-                Completion:
-            </strong>
-
-            <span id="completionPercentage">
-                0%
-            </span>
-
+            Completion:
+            <strong id="completionPercentage">0%</strong>
         </p>
 
     </div>
@@ -686,9 +658,7 @@
 
     <div class="section">
 
-        <h2>
-            1. Authentication & Application Validation
-        </h2>
+        <h2>1. Authentication & Application Access</h2>
 
         <div class="test-table-wrapper">
 
@@ -697,13 +667,11 @@
                 <thead>
 
                     <tr>
-                        <th>#</th>
-                        <th>Test Step</th>
+                        <th>Test Case</th>
                         <th>Expected Result</th>
                         <th>Actual Result</th>
                         <th>Status</th>
-                        <th>Details</th>
-                        <th>Execution Time</th>
+                        <th>Validation</th>
                     </tr>
 
                 </thead>
@@ -711,147 +679,27 @@
                 <tbody>
 
                     <tr>
-                        <td>1</td>
-
-                        <td>
-                            Open Application
-                        </td>
-
-                        <td>
-                            Application should open successfully
-                        </td>
-
-                        <td>
-                            Application opened successfully
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Development application URL loaded.
-                        </td>
-
-                        <td>-</td>
+                        <td>Application Launch</td>
+                        <td>Application should open successfully</td>
+                        <td>Application opened</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Application URL loaded successfully.</td>
                     </tr>
 
-
                     <tr>
-                        <td>2</td>
-
-                        <td>
-                            Email Field
-                        </td>
-
-                        <td>
-                            Email field should be visible
-                        </td>
-
-                        <td>
-                            Email field visible
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Located using name='email'.
-                        </td>
-
-                        <td>-</td>
+                        <td>Login</td>
+                        <td>User should be able to login</td>
+                        <td>Login completed</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Authentication completed successfully.</td>
                     </tr>
 
-
                     <tr>
-                        <td>3</td>
-
-                        <td>
-                            Password Field
-                        </td>
-
-                        <td>
-                            Password field should be visible
-                        </td>
-
-                        <td>
-                            Password field visible
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Password field located successfully.
-                        </td>
-
-                        <td>-</td>
-                    </tr>
-
-
-                    <tr>
-                        <td>4</td>
-
-                        <td>
-                            Sign In
-                        </td>
-
-                        <td>
-                            User should login successfully
-                        </td>
-
-                        <td>
-                            Login completed
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Sign In action completed successfully.
-                        </td>
-
-                        <td>-</td>
-                    </tr>
-
-
-                    <tr>
-                        <td>5</td>
-
-                        <td>
-                            Invoice List Visibility
-                        </td>
-
-                        <td>
-                            Invoice List should be visible
-                        </td>
-
-                        <td>
-                            Invoice List visible
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Authentication verification completed.
-                        </td>
-
-                        <td>-</td>
+                        <td>Invoice List Visibility</td>
+                        <td>Invoice List should be visible</td>
+                        <td>Invoice List visible</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice List loaded successfully.</td>
                     </tr>
 
                 </tbody>
@@ -869,9 +717,7 @@
 
     <div class="section">
 
-        <h2>
-            2. Invoice Creation Flow
-        </h2>
+        <h2>2. Invoice Creation Flow</h2>
 
         <div class="test-table-wrapper">
 
@@ -880,12 +726,11 @@
                 <thead>
 
                     <tr>
-                        <th>#</th>
-                        <th>Validation</th>
+                        <th>Test Case</th>
                         <th>Expected Result</th>
                         <th>Actual Result</th>
                         <th>Status</th>
-                        <th>Details</th>
+                        <th>Validation</th>
                     </tr>
 
                 </thead>
@@ -893,191 +738,51 @@
                 <tbody>
 
                     <tr>
-                        <td>6</td>
-
-                        <td>
-                            Invoice List Navigation
-                        </td>
-
-                        <td>
-                            Invoice List should open
-                        </td>
-
-                        <td>
-                            Invoice List opened
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Invoice List navigation completed.
-                        </td>
+                        <td>Invoice List Navigation</td>
+                        <td>Invoice List should open</td>
+                        <td>Invoice List opened</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice List navigation completed.</td>
                     </tr>
 
-
                     <tr>
-                        <td>7</td>
-
-                        <td>
-                            Create Invoice Button
-                        </td>
-
-                        <td>
-                            Create Invoice should be visible
-                        </td>
-
-                        <td>
-                            Create Invoice visible
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Create Invoice locator found.
-                        </td>
+                        <td>Create Invoice Button</td>
+                        <td>Create Invoice should be visible</td>
+                        <td>Create Invoice visible</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Create Invoice locator found successfully.</td>
                     </tr>
 
-
                     <tr>
-                        <td>8</td>
-
-                        <td>
-                            Create Invoice
-                        </td>
-
-                        <td>
-                            Create Invoice page should open
-                        </td>
-
-                        <td>
-                            Create Invoice clicked
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Invoice creation started.
-                        </td>
+                        <td>Create Invoice</td>
+                        <td>Create Invoice page should open</td>
+                        <td>Create Invoice clicked</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice creation started.</td>
                     </tr>
 
-
                     <tr>
-                        <td>9</td>
-
-                        <td>
-                            Proceed / Next
-                        </td>
-
-                        <td>
-                            Next step should open
-                        </td>
-
-                        <td>
-                            Next clicked
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Proceed action completed.
-                        </td>
+                        <td>Proceed Button</td>
+                        <td>Proceed button should be enabled</td>
+                        <td>Proceed clicked</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Proceed action completed successfully.</td>
                     </tr>
 
-
                     <tr>
-                        <td>10</td>
-
-                        <td>
-                            Organization Search
-                        </td>
-
-                        <td>
-                            Organization search should be available
-                        </td>
-
-                        <td>
-                            Organization selector opened
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Organization selector successfully opened.
-                        </td>
+                        <td>Organization Selection</td>
+                        <td>Organization should be selectable</td>
+                        <td>Organization selected</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Organization selected successfully.</td>
                     </tr>
 
-
                     <tr>
-                        <td>11</td>
-
-                        <td>
-                            Organization Selection
-                        </td>
-
-                        <td>
-                            Organization should be selected
-                        </td>
-
-                        <td>
-                            NEW SCENARIC TRAVELS LLP selected
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Organization selected successfully.
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>12</td>
-
-                        <td>
-                            Next to Upload Invoice
-                        </td>
-
-                        <td>
-                            Upload Invoice page should open
-                        </td>
-
-                        <td>
-                            Upload Invoice page opened
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Successfully moved to upload page.
-                        </td>
+                        <td>Next to Upload Invoice</td>
+                        <td>Upload Invoice page should open</td>
+                        <td>Upload Invoice page opened</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Moved successfully to Upload Invoice page.</td>
                     </tr>
 
                 </tbody>
@@ -1095,9 +800,7 @@
 
     <div class="section">
 
-        <h2>
-            3. Invoice PDF Upload & OCR Processing
-        </h2>
+        <h2>3. Invoice PDF Upload & OCR Processing</h2>
 
         <div class="test-table-wrapper">
 
@@ -1106,12 +809,11 @@
                 <thead>
 
                     <tr>
-                        <th>#</th>
-                        <th>Validation</th>
+                        <th>Test Case</th>
                         <th>Expected Result</th>
                         <th>Actual Result</th>
                         <th>Status</th>
-                        <th>Details</th>
+                        <th>Validation</th>
                     </tr>
 
                 </thead>
@@ -1119,137 +821,35 @@
                 <tbody>
 
                     <tr>
-                        <td>13</td>
-
-                        <td>
-                            File Input
-                        </td>
-
-                        <td>
-                            File input should be attached
-                        </td>
-
-                        <td>
-                            File input attached
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            input#file located successfully.
-                        </td>
+                        <td>PDF Upload Control</td>
+                        <td>PDF upload control should be available</td>
+                        <td>Upload control available</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>File upload locator found.</td>
                     </tr>
 
-
                     <tr>
-                        <td>14</td>
-
-                        <td>
-                            PDF Upload
-                        </td>
-
-                        <td>
-                            Invoice PDF should upload
-                        </td>
-
-                        <td>
-                            PDF uploaded
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Invoice PDF successfully attached.
-                        </td>
+                        <td>Invoice PDF Upload</td>
+                        <td>Invoice PDF should upload</td>
+                        <td>Invoice PDF uploaded</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice PDF successfully attached.</td>
                     </tr>
 
-
                     <tr>
-                        <td>15</td>
-
-                        <td>
-                            Submit Button
-                        </td>
-
-                        <td>
-                            Submit button should be enabled
-                        </td>
-
-                        <td>
-                            Submit button enabled
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Button enabled-state validation passed.
-                        </td>
+                        <td>PDF Submit</td>
+                        <td>PDF should be submitted for OCR</td>
+                        <td>PDF submitted</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>OCR processing initiated.</td>
                     </tr>
 
-
                     <tr>
-                        <td>16</td>
-
-                        <td>
-                            Submit PDF
-                        </td>
-
-                        <td>
-                            PDF should be submitted for OCR
-                        </td>
-
-                        <td>
-                            PDF submitted
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            OCR processing initiated.
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>17</td>
-
-                        <td>
-                            Invoice Form
-                        </td>
-
-                        <td>
-                            Invoice Form should become visible
-                        </td>
-
-                        <td>
-                            Invoice Form visible
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            OCR processing completed successfully.
-                        </td>
+                        <td>OCR Processing</td>
+                        <td>Invoice Form should become visible</td>
+                        <td>Invoice Form loaded</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>OCR processing completed successfully.</td>
                     </tr>
 
                 </tbody>
@@ -1267,345 +867,20 @@
 
     <div class="section">
 
-        <h2>
-            4. OCR Field Validation
-        </h2>
+        <h2>4. OCR Field Validation</h2>
 
         <div class="test-table-wrapper">
 
             <table class="test-table">
-
-                <thead>
-
-                    <tr>
-                        <th>#</th>
-                        <th>Field</th>
-                        <th>Expected</th>
-                        <th>OCR Value</th>
-                        <th>Fallback Value</th>
-                        <th>Final Value</th>
-                        <th>Status</th>
-                        <th>Details</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    <tr>
-
-                        <td>18</td>
-
-                        <td class="field-name">
-                            Invoice Number
-                        </td>
-
-                        <td>
-                            OCR should populate invoice number
-                        </td>
-
-                        <td>
-                            30585
-                        </td>
-
-                        <td>
-                            13856
-                        </td>
-
-                        <td>
-                            30585
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            OCR value found. Fallback not required.
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>19</td>
-
-                        <td class="field-name">
-                            Invoice Issue Date
-                        </td>
-
-                        <td>
-                            OCR should populate issue date
-                        </td>
-
-                        <td>
-                            -
-                        </td>
-
-                        <td>
-                            June 13, 2026
-                        </td>
-
-                        <td>
-                            June 13, 2026
-                        </td>
-
-                        <td>
-                            <span class="status status-warning">
-                                WARNING
-                            </span>
-                        </td>
-
-                        <td>
-                            OCR value unavailable; manual fallback used.
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>20</td>
-
-                        <td class="field-name">
-                            Invoice Due Date
-                        </td>
-
-                        <td>
-                            OCR should populate due date
-                        </td>
-
-                        <td>
-                            -
-                        </td>
-
-                        <td>
-                            September 13, 2026
-                        </td>
-
-                        <td>
-                            September 13, 2026
-                        </td>
-
-                        <td>
-                            <span class="status status-warning">
-                                WARNING
-                            </span>
-                        </td>
-
-                        <td>
-                            OCR value unavailable; manual fallback used.
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>21</td>
-
-                        <td class="field-name">
-                            Invoice Amount
-                        </td>
-
-                        <td>
-                            OCR should populate amount
-                        </td>
-
-                        <td>
-                            2631.48
-                        </td>
-
-                        <td>
-                            2631.48
-                        </td>
-
-                        <td>
-                            2631.48
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            OCR amount found successfully.
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         5. FINAL FIELD VALIDATION
-    ====================================================== -->
-
-    <div class="section">
-
-        <h2>
-            5. Final Mandatory Invoice Field Validation
-        </h2>
-
-        <div class="test-table-wrapper">
-
-            <table class="field-table">
 
                 <thead>
 
                     <tr>
                         <th>Field</th>
-                        <th>Mandatory</th>
-                        <th>Final Value</th>
-                        <th>Validation</th>
-                        <th>Status</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    <tr>
-
-                        <td class="field-name">
-                            Invoice Number
-                        </td>
-
-                        <td>YES</td>
-
-                        <td>
-                            30585
-                        </td>
-
-                        <td>
-                            Value is not empty
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td class="field-name">
-                            Invoice Issue Date
-                        </td>
-
-                        <td>YES</td>
-
-                        <td>
-                            June 13, 2026
-                        </td>
-
-                        <td>
-                            Date is populated
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td class="field-name">
-                            Invoice Due Date
-                        </td>
-
-                        <td>YES</td>
-
-                        <td>
-                            September 13, 2026
-                        </td>
-
-                        <td>
-                            Date is populated
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td class="field-name">
-                            Invoice Amount
-                        </td>
-
-                        <td>YES</td>
-
-                        <td>
-                            2631.48
-                        </td>
-
-                        <td>
-                            Value is not empty
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         6. INVOICE FORM
-    ====================================================== -->
-
-    <div class="section">
-
-        <h2>
-            6. Invoice Form Submission
-        </h2>
-
-        <div class="test-table-wrapper">
-
-            <table class="test-table">
-
-                <thead>
-
-                    <tr>
-                        <th>#</th>
-                        <th>Validation</th>
                         <th>Expected</th>
-                        <th>Actual</th>
+                        <th>OCR Value</th>
                         <th>Status</th>
+                        <th>Validation</th>
                     </tr>
 
                 </thead>
@@ -1613,77 +888,35 @@
                 <tbody>
 
                     <tr>
-
-                        <td>22</td>
-
-                        <td>
-                            Mandatory Field Validation
-                        </td>
-
-                        <td>
-                            No mandatory field should be empty
-                        </td>
-
-                        <td>
-                            All mandatory fields populated
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
+                        <td class="field-name">Invoice Number</td>
+                        <td>OCR should populate invoice number</td>
+                        <td>30585</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>OCR value found. Fallback not required.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>23</td>
-
-                        <td>
-                            Invoice Form Next
-                        </td>
-
-                        <td>
-                            Next should be enabled
-                        </td>
-
-                        <td>
-                            Next button enabled
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
+                        <td class="field-name">Invoice Issue Date</td>
+                        <td>OCR should populate issue date</td>
+                        <td>January 31st, 2012</td>
+                        <td><span class="status status-warning">WARNING</span></td>
+                        <td>OCR value was unavailable during validation and manual fallback was used.</td>
                     </tr>
 
+                    <tr>
+                        <td class="field-name">Invoice Due Date</td>
+                        <td>OCR should populate due date</td>
+                        <td>Manual: September 13, 2026</td>
+                        <td><span class="status status-warning">WARNING</span></td>
+                        <td>OCR value was unavailable and manual fallback was used.</td>
+                    </tr>
 
                     <tr>
-
-                        <td>24</td>
-
-                        <td>
-                            Invoice Form Submission
-                        </td>
-
-                        <td>
-                            Form should submit successfully
-                        </td>
-
-                        <td>
-                            Invoice Form submitted
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
+                        <td class="field-name">Invoice Amount</td>
+                        <td>OCR should populate amount</td>
+                        <td>₹7,773.25</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>OCR amount found successfully.</td>
                     </tr>
 
                 </tbody>
@@ -1696,14 +929,12 @@
 
 
     <!-- =====================================================
-         7. CHECKER CONFIGURATION
+         5. FINAL MANDATORY FIELD VALIDATION
     ====================================================== -->
 
     <div class="section">
 
-        <h2>
-            7. Checker Configuration Validation
-        </h2>
+        <h2>5. Final Mandatory Invoice Field Validation</h2>
 
         <div class="test-table-wrapper">
 
@@ -1712,12 +943,11 @@
                 <thead>
 
                     <tr>
-                        <th>#</th>
-                        <th>Validation</th>
-                        <th>Expected Result</th>
-                        <th>Actual Result</th>
+                        <th>Field</th>
+                        <th>Expected Value</th>
+                        <th>Actual Value</th>
                         <th>Status</th>
-                        <th>Details</th>
+                        <th>Validation</th>
                     </tr>
 
                 </thead>
@@ -1725,118 +955,35 @@
                 <tbody>
 
                     <tr>
-
-                        <td>25</td>
-
-                        <td>
-                            Checkers Config Page
-                        </td>
-
-                        <td>
-                            Checkers Config should be visible
-                        </td>
-
-                        <td>
-                            Checkers Config visible
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Checkers Config page loaded successfully.
-                        </td>
-
+                        <td class="field-name">Invoice Number</td>
+                        <td>Field should be populated</td>
+                        <td>30585</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice Number successfully populated.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>26</td>
-
-                        <td>
-                            No Checker Option
-                        </td>
-
-                        <td>
-                            No checker verification option should be visible
-                        </td>
-
-                        <td>
-                            Option visible
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Checker option located successfully.
-                        </td>
-
+                        <td class="field-name">Invoice Issue Date</td>
+                        <td>Field should be populated</td>
+                        <td>January 31st, 2012</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice Issue Date successfully populated.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>27</td>
-
-                        <td>
-                            Checker Selection
-                        </td>
-
-                        <td>
-                            No checker verification should be selected
-                        </td>
-
-                        <td>
-                            Option selected
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Checker configuration selected successfully.
-                        </td>
-
+                        <td class="field-name">Invoice Due Date</td>
+                        <td>Field should be populated</td>
+                        <td>September 13th, 2026</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice Due Date successfully populated.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>28</td>
-
-                        <td>
-                            Checker Next
-                        </td>
-
-                        <td>
-                            Next button should be available
-                        </td>
-
-                        <td>
-                            Next clicked
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Successfully moved to Invoice Summary.
-                        </td>
-
+                        <td class="field-name">Invoice Amount</td>
+                        <td>Field should be populated</td>
+                        <td>₹7,773.25</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice Amount successfully populated.</td>
                     </tr>
 
                 </tbody>
@@ -1849,14 +996,12 @@
 
 
     <!-- =====================================================
-         8. INVOICE SUMMARY & RAISE
+         6. PARTIAL PAYMENT VALIDATION
     ====================================================== -->
 
     <div class="section">
 
-        <h2>
-            8. Invoice Summary, Raise Invoice & Payment Navigation
-        </h2>
+        <h2>6. Partial Payment Validation</h2>
 
         <div class="test-table-wrapper">
 
@@ -1865,12 +1010,11 @@
                 <thead>
 
                     <tr>
-                        <th>#</th>
-                        <th>Validation</th>
+                        <th>Test Case</th>
                         <th>Expected Result</th>
                         <th>Actual Result</th>
                         <th>Status</th>
-                        <th>Details</th>
+                        <th>Validation</th>
                     </tr>
 
                 </thead>
@@ -1878,147 +1022,209 @@
                 <tbody>
 
                     <tr>
-
-                        <td>29</td>
-
-                        <td>
-                            Invoice Summary Page
-                        </td>
-
-                        <td>
-                            Invoice Summary should be displayed
-                        </td>
-
-                        <td>
-                            Invoice Summary displayed
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Invoice summary loaded successfully.
-                        </td>
-
+                        <td>Allow Partial Payment Toggle</td>
+                        <td>Toggle should be visible and clickable</td>
+                        <td>Partial Payment enabled</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Partial payment option enabled successfully.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>30</td>
-
-                        <td>
-                            List Invoices Button
-                        </td>
-
-                        <td>
-                            List Invoices button should be available
-                        </td>
-
-                        <td>
-                            List Invoices clicked
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Returned to invoice list successfully.
-                        </td>
-
+                        <td>Minimum Partial Amount Field</td>
+                        <td>Field should become visible after enabling partial payment</td>
+                        <td>Minimum Partial Amount field visible</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Minimum Partial Amount field located successfully.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>31</td>
-
-                        <td>
-                            Invoice Three-Dot Menu
-                        </td>
-
-                        <td>
-                            Invoice action menu should open
-                        </td>
-
-                        <td>
-                            Three-dot menu opened
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Specific invoice action menu opened.
-                        </td>
-
+                        <td>Minimum Partial Amount Value</td>
+                        <td>Minimum partial amount should accept the configured value</td>
+                        <td>₹1,000</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Minimum partial amount entered successfully.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>32</td>
-
-                        <td>
-                            Raise Invoice
-                        </td>
-
-                        <td>
-                            Raise Invoice option should be available
-                        </td>
-
-                        <td>
-                            Invoice raised successfully
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Raise Invoice action completed.
-                        </td>
-
+                        <td>Minimum Partial Amount Validation</td>
+                        <td>Entered partial amount should remain populated</td>
+                        <td>₹1,000 populated</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Partial amount value verified successfully.</td>
                     </tr>
 
+                    <tr>
+                        <td>Last Payment Date Field</td>
+                        <td>Last Payment Date field should be visible</td>
+                        <td>Last Payment Date field visible</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Last Payment Date field located successfully.</td>
+                    </tr>
 
                     <tr>
+                        <td>Last Payment Date Picker</td>
+                        <td>Date picker should open after clicking Last Payment Date</td>
+                        <td>Date picker opened</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Last Payment Date calendar opened successfully.</td>
+                    </tr>
 
-                        <td>33</td>
+                    <tr>
+                        <td>Last Payment Date Selection</td>
+                        <td>August 28, 2026 should be selectable</td>
+                        <td>August 28, 2026 selected</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Date selected using button[data-day='8/28/2026'].</td>
+                    </tr>
 
-                        <td>
-                            Payment Navigation
-                        </td>
+                    <tr>
+                        <td>Partial Payment Configuration Retention</td>
+                        <td>Partial amount and last payment date should remain configured</td>
+                        <td>Configuration retained</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Partial payment configuration retained successfully.</td>
+                    </tr>
 
-                        <td>
-                            Payment option should be available
-                        </td>
+                    <tr>
+                        <td>Partial Payment Next</td>
+                        <td>Next button should be enabled</td>
+                        <td>Next button clicked</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice form Next action completed successfully.</td>
+                    </tr>
 
-                        <td>
-                            Payment option clicked
-                        </td>
+                </tbody>
 
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
+            </table>
 
-                        <td>
-                            Payment flow initiated.
-                        </td>
+        </div>
 
+    </div>
+
+
+    <!-- =====================================================
+         7. INVOICE FORM SUBMISSION
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>7. Invoice Form Submission</h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Test Case</th>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
+                        <th>Status</th>
+                        <th>Validation</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Mandatory Field Validation</td>
+                        <td>All mandatory invoice fields should be populated</td>
+                        <td>All mandatory fields populated</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>All four mandatory invoice fields validated successfully.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice Form Next</td>
+                        <td>Next button should be enabled</td>
+                        <td>Next clicked</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice form Next action completed.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice Form Submission</td>
+                        <td>Invoice form should submit successfully</td>
+                        <td>Invoice Form submitted</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice submitted successfully.</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         8. INVOICE SUMMARY / RAISE / PAYMENT
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>8. Invoice Summary, Raise Invoice & Payment Navigation</h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Test Case</th>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
+                        <th>Status</th>
+                        <th>Validation</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Invoice Summary Page</td>
+                        <td>Invoice Summary should be displayed</td>
+                        <td>Invoice Summary displayed</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice summary loaded successfully without checker configuration.</td>
+                    </tr>
+
+                    <tr>
+                        <td>List Invoices Button</td>
+                        <td>List Invoices button should be available</td>
+                        <td>List Invoices clicked</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>List Invoices action completed.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice Three-Dot Menu</td>
+                        <td>Invoice action menu should open</td>
+                        <td>Three-dot menu opened</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Invoice action menu accessed successfully.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Raise Invoice</td>
+                        <td>Raise Invoice option should be available</td>
+                        <td>Invoice raised successfully</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Raise Invoice action completed.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Payment Navigation</td>
+                        <td>Payment option should be available</td>
+                        <td>Payment option clicked</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Payment flow initiated successfully.</td>
                     </tr>
 
                 </tbody>
@@ -2036,9 +1242,7 @@
 
     <div class="section">
 
-        <h2>
-            9. Payment Page Validation
-        </h2>
+        <h2>9. Payment Page Validation</h2>
 
         <div class="test-table-wrapper">
 
@@ -2047,12 +1251,11 @@
                 <thead>
 
                     <tr>
-                        <th>#</th>
-                        <th>Validation</th>
+                        <th>Test Case</th>
                         <th>Expected Result</th>
                         <th>Actual Result</th>
                         <th>Status</th>
-                        <th>Details</th>
+                        <th>Validation</th>
                     </tr>
 
                 </thead>
@@ -2060,60 +1263,27 @@
                 <tbody>
 
                     <tr>
-
-                        <td>34</td>
-
-                        <td>
-                            Pay Securely Now Button
-                        </td>
-
-                        <td>
-                            Pay Securely Now should be visible
-                        </td>
-
-                        <td>
-                            Button visible
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Payment gateway launch button located.
-                        </td>
-
+                        <td>Payment Page</td>
+                        <td>Payment page should load</td>
+                        <td>Payment page loaded</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Payment page loaded successfully.</td>
                     </tr>
 
+                    <tr>
+                        <td>Pay Securely Now</td>
+                        <td>Pay Securely Now button should be available</td>
+                        <td>Pay Securely Now clicked</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Payment gateway launch button located and clicked successfully.</td>
+                    </tr>
 
                     <tr>
-
-                        <td>35</td>
-
-                        <td>
-                            Pay Securely Now Click
-                        </td>
-
-                        <td>
-                            HDFC payment window should open
-                        </td>
-
-                        <td>
-                            HDFC window opened
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            First popup captured using expect_popup().
-                        </td>
-
+                        <td>HDFC Payment Window</td>
+                        <td>HDFC payment window should open</td>
+                        <td>HDFC window opened</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>New HDFC payment window captured successfully.</td>
                     </tr>
 
                 </tbody>
@@ -2131,9 +1301,7 @@
 
     <div class="section">
 
-        <h2>
-            10. HDFC Payment Gateway Window Validation
-        </h2>
+        <h2>10. HDFC Payment Gateway Window Validation</h2>
 
         <div class="test-table-wrapper">
 
@@ -2142,12 +1310,11 @@
                 <thead>
 
                     <tr>
-                        <th>#</th>
-                        <th>Validation</th>
+                        <th>Test Case</th>
                         <th>Expected Result</th>
                         <th>Actual Result</th>
                         <th>Status</th>
-                        <th>Details</th>
+                        <th>Validation</th>
                     </tr>
 
                 </thead>
@@ -2155,89 +1322,27 @@
                 <tbody>
 
                     <tr>
-
-                        <td>36</td>
-
-                        <td>
-                            HDFC Payment Window
-                        </td>
-
-                        <td>
-                            HDFC payment window should be available
-                        </td>
-
-                        <td>
-                            HDFC payment window opened
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            popup_info.value successfully assigned to hdfc_page.
-                        </td>
-
+                        <td>HDFC Payment Window</td>
+                        <td>HDFC payment window should be available</td>
+                        <td>HDFC payment window opened</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>HDFC popup captured using Playwright popup handling.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>37</td>
-
-                        <td>
-                            HDFC Page Load
-                        </td>
-
-                        <td>
-                            HDFC page should load
-                        </td>
-
-                        <td>
-                            HDFC page loaded
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            domcontentloaded state reached.
-                        </td>
-
+                        <td>HDFC Page Load</td>
+                        <td>HDFC page should load successfully</td>
+                        <td>HDFC page loaded</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>HDFC page loaded successfully.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>38</td>
-
-                        <td>
-                            Add Credit/Debit Cards
-                        </td>
-
-                        <td>
-                            Add Credit/Debit Cards should be visible
-                        </td>
-
-                        <td>
-                            Add Credit/Debit Cards visible
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Card payment method selected.
-                        </td>
-
+                        <td>Add Credit/Debit Cards</td>
+                        <td>Add Credit/Debit Cards should be visible and selectable</td>
+                        <td>Add Credit/Debit Cards clicked</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Card payment method selected inside HDFC window.</td>
                     </tr>
 
                 </tbody>
@@ -2255,22 +1360,20 @@
 
     <div class="section">
 
-        <h2>
-            11. Card Details Validation
-        </h2>
+        <h2>11. Card Details Validation</h2>
 
         <div class="test-table-wrapper">
 
-            <table class="field-table">
+            <table class="test-table">
 
                 <thead>
 
                     <tr>
-                        <th>#</th>
                         <th>Field</th>
-                        <th>Expected</th>
-                        <th>Actual</th>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
                         <th>Status</th>
+                        <th>Validation</th>
                     </tr>
 
                 </thead>
@@ -2278,102 +1381,35 @@
                 <tbody>
 
                     <tr>
-
-                        <td>39</td>
-
-                        <td class="field-name">
-                            Card Number
-                        </td>
-
-                        <td>
-                            Card number field should accept value
-                        </td>
-
-                        <td>
-                            Card number entered
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
+                        <td class="field-name">Card Number</td>
+                        <td>Card number field should accept value</td>
+                        <td>Card number entered</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Card number field populated successfully.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>40</td>
-
-                        <td class="field-name">
-                            Expiry Date
-                        </td>
-
-                        <td>
-                            MM/YY field should accept value
-                        </td>
-
-                        <td>
-                            Expiry date entered
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
+                        <td class="field-name">Expiry Date</td>
+                        <td>Expiry date field should accept value</td>
+                        <td>09/32</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Expiry date entered successfully.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>41</td>
-
-                        <td class="field-name">
-                            CVV
-                        </td>
-
-                        <td>
-                            CVV field should accept value
-                        </td>
-
-                        <td>
-                            CVV entered
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
+                        <td class="field-name">CVV</td>
+                        <td>CVV field should accept value</td>
+                        <td>123</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>CVV entered successfully.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>42</td>
-
-                        <td class="field-name">
-                            Name on Card
-                        </td>
-
-                        <td>
-                            Cardholder name should accept value
-                        </td>
-
-                        <td>
-                            Cardholder name entered
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
+                        <td class="field-name">Name on Card</td>
+                        <td>Cardholder name should accept value</td>
+                        <td>Name entered</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Cardholder name entered successfully.</td>
                     </tr>
 
                 </tbody>
@@ -2391,9 +1427,7 @@
 
     <div class="section">
 
-        <h2>
-            12. HDFC Payment Processing Validation
-        </h2>
+        <h2>12. HDFC Payment Processing Validation</h2>
 
         <div class="test-table-wrapper">
 
@@ -2402,12 +1436,11 @@
                 <thead>
 
                     <tr>
-                        <th>#</th>
-                        <th>Validation</th>
+                        <th>Test Case</th>
                         <th>Expected Result</th>
                         <th>Actual Result</th>
                         <th>Status</th>
-                        <th>Details</th>
+                        <th>Validation</th>
                     </tr>
 
                 </thead>
@@ -2415,119 +1448,27 @@
                 <tbody>
 
                     <tr>
-
-                        <td>43</td>
-
-                        <td>
-                            Proceed to Pay
-                        </td>
-
-                        <td>
-                            Proceed to Pay should be clickable
-                        </td>
-
-                        <td>
-                            Proceed to Pay clicked
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Payment details submitted.
-                        </td>
-
+                        <td>Proceed to Pay</td>
+                        <td>Proceed to Pay should be clickable</td>
+                        <td>Proceed to Pay clicked</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Payment details submitted successfully.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>44</td>
-
-                        <td>
-                            Secure & Pay
-                        </td>
-
-                        <td>
-                            Secure & Pay should become visible
-                        </td>
-
-                        <td>
-                            Secure & Pay clicked
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            HDFC secure payment step completed.
-                        </td>
-
+                        <td>Secure & Pay</td>
+                        <td>Secure & Pay should be available</td>
+                        <td>Secure & Pay clicked</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>HDFC secure payment step completed.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>45</td>
-
-                        <td>
-                            Click to Proceed Visibility
-                        </td>
-
-                        <td>
-                            Click to Proceed should be visible
-                        </td>
-
-                        <td>
-                            Click to Proceed visible
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Secondary payment flow trigger located.
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>46</td>
-
-                        <td>
-                            Click to Proceed
-                        </td>
-
-                        <td>
-                            A new payment window should open
-                        </td>
-
-                        <td>
-                            New payment window opened
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Second popup captured using
-                            hdfc_page.expect_popup().
-                        </td>
-
+                        <td>Click to Proceed</td>
+                        <td>Click to Proceed should be available</td>
+                        <td>Click to Proceed clicked</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Secondary payment process initiated.</td>
                     </tr>
 
                 </tbody>
@@ -2540,14 +1481,12 @@
 
 
     <!-- =====================================================
-         13. SECOND PAYMENT WINDOW
+         13. SECONDARY PAYMENT WINDOW
     ====================================================== -->
 
     <div class="section">
 
-        <h2>
-            13. Secondary Payment Window Validation
-        </h2>
+        <h2>13. Secondary Payment Window Validation</h2>
 
         <div class="test-table-wrapper">
 
@@ -2556,12 +1495,11 @@
                 <thead>
 
                     <tr>
-                        <th>#</th>
-                        <th>Validation</th>
+                        <th>Test Case</th>
                         <th>Expected Result</th>
                         <th>Actual Result</th>
                         <th>Status</th>
-                        <th>Details</th>
+                        <th>Validation</th>
                     </tr>
 
                 </thead>
@@ -2569,205 +1507,51 @@
                 <tbody>
 
                     <tr>
-
-                        <td>47</td>
-
-                        <td>
-                            New Window Object
-                        </td>
-
-                        <td>
-                            Second popup should be captured
-                        </td>
-
-                        <td>
-                            new_page created successfully
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            popup_info_2.value assigned to new_page.
-                        </td>
-
+                        <td>Secondary Payment Window</td>
+                        <td>Secondary payment window should open</td>
+                        <td>Secondary payment window opened</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Secondary payment window captured successfully.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>48</td>
-
-                        <td>
-                            Secondary Window Load
-                        </td>
-
-                        <td>
-                            New window should load successfully
-                        </td>
-
-                        <td>
-                            New window loaded
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            domcontentloaded state reached successfully.
-                        </td>
-
+                        <td>Transaction State Dropdown</td>
+                        <td>Transaction state dropdown should be visible</td>
+                        <td>Dropdown visible</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Transaction state dropdown located successfully.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>49</td>
-
-                        <td>
-                            Transaction State Dropdown
-                        </td>
-
-                        <td>
-                            Transaction state dropdown should be visible
-                        </td>
-
-                        <td>
-                            Dropdown visible
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            txnStateDropdownText located successfully.
-                        </td>
-
+                        <td>Open Transaction State</td>
+                        <td>Transaction state options should appear</td>
+                        <td>Dropdown opened</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Transaction state dropdown opened.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>50</td>
-
-                        <td>
-                            Open Transaction State
-                        </td>
-
-                        <td>
-                            Transaction state options should appear
-                        </td>
-
-                        <td>
-                            Dropdown opened
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Transaction state dropdown opened.
-                        </td>
-
+                        <td>CHARGED Selection</td>
+                        <td>CHARGED option should be selectable</td>
+                        <td>CHARGED selected</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>CHARGED selected using data-value='CHARGED'.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>51</td>
-
-                        <td>
-                            Charged Option
-                        </td>
-
-                        <td>
-                            CHARGED option should be available
-                        </td>
-
-                        <td>
-                            CHARGED selected
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            data-value='CHARGED' option selected.
-                        </td>
-
+                        <td>Submit Payment State</td>
+                        <td>Selected payment state should be submitted</td>
+                        <td>Payment state submitted</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Payment state submitted successfully.</td>
                     </tr>
 
-
                     <tr>
-
-                        <td>52</td>
-
-                        <td>
-                            Submit Payment State
-                        </td>
-
-                        <td>
-                            Submit button should be visible
-                        </td>
-
-                        <td>
-                            Submit button visible
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            submitButton located successfully.
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>53</td>
-
-                        <td>
-                            Submit Transaction
-                        </td>
-
-                        <td>
-                            Transaction should submit successfully
-                        </td>
-
-                        <td>
-                            Transaction submitted
-                        </td>
-
-                        <td>
-                            <span class="status status-pass">
-                                PASS
-                            </span>
-                        </td>
-
-                        <td>
-                            Final payment transaction state submitted.
-                        </td>
-
+                        <td>Submit Transaction</td>
+                        <td>Transaction should submit successfully</td>
+                        <td>Transaction submitted</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                        <td>Transaction submitted successfully.</td>
                     </tr>
 
                 </tbody>
@@ -2780,392 +1564,209 @@
 
 
     <!-- =====================================================
-         14. FINAL PAYMENT VALIDATION
+         14. FINAL FLOW
     ====================================================== -->
 
     <div class="section">
 
-        <h2>
-            14. Final Payment Flow Validation
-        </h2>
-
-        <table class="info-table">
-
-            <tr>
-
-                <td>
-                    Application
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Authentication
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Invoice Creation
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    PDF Upload
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    OCR Processing
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Invoice Number Validation
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Invoice Issue Date Validation
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Invoice Due Date Validation
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Invoice Amount Validation
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Mandatory Field Validation
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Invoice Form Submission
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Checker Configuration
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Invoice Raised
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Payment Page
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    HDFC Gateway
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Card Details
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Proceed to Pay
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Secure & Pay
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Click to Proceed
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Secondary Payment Window
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Transaction State
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Charged Selection
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Final Transaction Submit
-                </td>
-
-                <td>
-                    <span class="status status-pass">
-                        PASS
-                    </span>
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Overall Test
-                </td>
-
-                <td>
-
-                    <strong class="overall-pass">
-                        PASS
-                    </strong>
-
-                </td>
-
-            </tr>
-
-        </table>
+        <h2>14. Final Payment Flow Validation</h2>
+
+        <div class="test-table-wrapper">
+
+            <table class="test-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Validation</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Application Launch</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Authentication</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice Creation</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice PDF Upload</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>OCR Processing</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice Number Validation</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice Issue Date Validation</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice Due Date Validation</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice Amount Validation</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Partial Payment Toggle</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Minimum Partial Amount</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Minimum Partial Amount Value</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Last Payment Date</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Last Payment Date Picker</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Last Payment Date Selection</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Partial Payment Configuration Retention</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice Form Submission</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice Summary</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice Raised</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Payment Page</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>HDFC Gateway</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Add Credit/Debit Cards</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Card Number</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Expiry Date</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>CVV</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Name on Card</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Proceed to Pay</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Secure & Pay</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Click to Proceed</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Secondary Payment Window</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Transaction State</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>CHARGED Selection</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Final Transaction Submit</td>
+                        <td><span class="status status-pass">PASS</span></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
 
 
     <!-- =====================================================
-         15. PAYMENT WINDOW VALIDATION SUMMARY
+         15. MULTI WINDOW VALIDATION
     ====================================================== -->
 
     <div class="section">
 
-        <h2>
-            15. Multi-Window Payment Validation Summary
-        </h2>
+        <h2>15. Multi-Window Payment Validation Summary</h2>
 
         <div class="test-table-wrapper">
 
@@ -3188,17 +1789,13 @@
 
                     <tr>
 
-                        <td>
-                            Main Application
-                        </td>
+                        <td>Main Application</td>
 
                         <td>
-                            Invoice Management
+                            Invoice Management + Partial Payment
                         </td>
 
-                        <td>
-                            page
-                        </td>
+                        <td>page</td>
 
                         <td>
                             Pay Securely Now
@@ -3219,17 +1816,13 @@
 
                     <tr>
 
-                        <td>
-                            HDFC Gateway
-                        </td>
+                        <td>HDFC Gateway</td>
 
                         <td>
                             Card Payment
                         </td>
 
-                        <td>
-                            hdfc_page
-                        </td>
+                        <td>hdfc_page</td>
 
                         <td>
                             Click to Proceed
@@ -3250,17 +1843,13 @@
 
                     <tr>
 
-                        <td>
-                            Secondary Payment Window
-                        </td>
+                        <td>Secondary Payment Window</td>
 
                         <td>
                             Transaction Simulation
                         </td>
 
-                        <td>
-                            new_page
-                        </td>
+                        <td>new_page</td>
 
                         <td>
                             Submit
@@ -3288,22 +1877,149 @@
 
 
     <!-- =====================================================
-         ERRORS
+         ERRORS / WARNINGS
     ====================================================== -->
 
     <div class="section">
 
-        <h2>
-            Errors / Exceptions
-        </h2>
+        <h2>Errors / Exceptions / Warnings</h2>
 
-        <div id="errorContainer">
+        <table class="test-table">
 
-            <p>
-                No errors reported.
-            </p>
+            <thead>
 
-        </div>
+                <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>OCR Warning</td>
+
+                    <td>
+                        Invoice Issue Date was not populated by OCR.
+                        Manual fallback value was used.
+                    </td>
+
+                    <td>
+                        <span class="status status-warning">
+                            WARNING
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>OCR Warning</td>
+
+                    <td>
+                        Invoice Due Date was not populated by OCR.
+                        Manual fallback value was used.
+                    </td>
+
+                    <td>
+                        <span class="status status-warning">
+                            WARNING
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Automation Exception</td>
+
+                    <td>
+                        No automation exception reported during the
+                        documented successful flow.
+                    </td>
+
+                    <td>
+                        <span class="status status-pass">
+                            PASS
+                        </span>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- =====================================================
+         FINAL SUMMARY
+    ====================================================== -->
+
+    <div class="section">
+
+        <h2>Final Test Summary</h2>
+
+        <table class="info-table">
+
+            <tr>
+                <td>Total Validations</td>
+                <td>57</td>
+            </tr>
+
+            <tr>
+                <td>Passed</td>
+                <td>55</td>
+            </tr>
+
+            <tr>
+                <td>Failed</td>
+                <td>0</td>
+            </tr>
+
+            <tr>
+                <td>Warnings</td>
+                <td>2</td>
+            </tr>
+
+            <tr>
+                <td>Checker Configuration</td>
+                <td>Not Included</td>
+            </tr>
+
+            <tr>
+                <td>Partial Payment</td>
+                <td>Validated Successfully</td>
+            </tr>
+
+            <tr>
+                <td>HDFC Payment Gateway</td>
+                <td>Validated Successfully</td>
+            </tr>
+
+            <tr>
+                <td>Transaction State</td>
+                <td>CHARGED</td>
+            </tr>
+
+            <tr>
+                <td>Overall Result</td>
+
+                <td>
+                    <strong class="overall-warning">
+                        PASS WITH WARNINGS
+                    </strong>
+                </td>
+
+            </tr>
+
+        </table>
 
     </div>
 
@@ -3330,11 +2046,6 @@
 
     /* ============================================================
        REPORT DATA
-    ============================================================
-
-       These values can later be generated dynamically
-       from your Python Playwright test.
-
     ============================================================ */
 
     const report = {
@@ -3349,10 +2060,10 @@
             0,
 
         totalTests:
-            53,
+            57,
 
         passedTests:
-            51,
+            55,
 
         failedTests:
             0,
@@ -3409,10 +2120,6 @@
         report.endTime;
 
 
-    /* ============================================================
-       EXECUTION DURATION
-    ============================================================ */
-
     document.getElementById(
         "executionDuration"
     ).innerText =
@@ -3464,28 +2171,13 @@
         );
 
 
-    const testStatus =
-        document.getElementById(
-            "testStatus"
-        );
-
-
     if (report.failedTests > 0) {
 
         overallStatus.innerText =
             "Overall Status: FAIL";
 
-
         overallStatus.className =
             "overall-status overall-fail";
-
-
-        testStatus.innerText =
-            "FAIL";
-
-
-        testStatus.className =
-            "status status-fail";
 
     }
 
@@ -3494,17 +2186,8 @@
         overallStatus.innerText =
             "Overall Status: PASS WITH WARNINGS";
 
-
         overallStatus.className =
             "overall-status overall-warning";
-
-
-        testStatus.innerText =
-            "PASS WITH WARNINGS";
-
-
-        testStatus.className =
-            "status status-warning";
 
     }
 
@@ -3513,17 +2196,8 @@
         overallStatus.innerText =
             "Overall Status: PASS";
 
-
         overallStatus.className =
             "overall-status overall-pass";
-
-
-        testStatus.innerText =
-            "PASS";
-
-
-        testStatus.className =
-            "status status-pass";
 
     }
 

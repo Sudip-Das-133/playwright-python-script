@@ -1,6 +1,7 @@
 
 import time
 from datetime import datetime
+from pydoc import visiblename
 
 from playwright.sync_api import sync_playwright, expect
 
@@ -556,6 +557,72 @@ with sync_playwright() as p:
     )
 
 
+    # =======================================================
+    # Script for the 'Partial payment' flow :
+    # ========================================================
+
+
+    # =======================================================
+    # 1 : Click on the 'Allow Partial Payment' toggle button :
+    # ========================================================
+
+    Allow_partial_payment_toggle_button = page.locator("button[role='switch']")
+    Allow_partial_payment_toggle_button.wait_for(
+        state="visible",
+        timeout=15000
+    )
+    Allow_partial_payment_toggle_button.click()
+
+    print ("=================================================================================")
+
+
+    # =========================================================================
+    # 2 : Fill minimum partial amount  in the minimum partial amount text field :
+    # ==========================================================================
+
+    minimum_partial_amount = page.locator("//input[@placeholder='Enter Minimum Partial Amount']")
+    minimum_partial_amount.wait_for(
+        state="visible",
+        timeout=15000
+    )
+    minimum_partial_amount.fill('1000')
+
+
+    # ================================================================
+    # 3:  Select the last payment date from the date picker :
+    # ================================================================
+
+    #     ##  First click in the date picker :
+
+    last_payment_date = page.get_by_label("Last Payment Date")
+
+    last_payment_date.wait_for(
+        state="visible",
+        timeout=15000
+    )
+
+    last_payment_date.click()
+
+    print("✓ Last Payment Date picker opened")
+    # ==========================================
+    # 4. Select 28 August 2026
+    # =======================================================
+
+    payment_date = page.locator(
+        "button[data-day='8/28/2026']"
+    )
+
+    payment_date.wait_for(
+        state="visible",
+        timeout=15000
+    )
+
+    payment_date.click()
+
+    print("✓ Last Payment Date selected: August 27, 2026")
+
+
+
     # ========================================================
     # 15. CLICK NEXT ON INVOICE FORM
     # ========================================================
@@ -614,7 +681,7 @@ with sync_playwright() as p:
     Select_checker_config.click()
     time.sleep(3)
 
-    print("Sucessfully checker configuration selected ")
+    print("Successfully checker configuration selected ")
 
     ## click on  the 'Next' button in the Checker configuration page :
 
@@ -655,7 +722,7 @@ with sync_playwright() as p:
     Raised_option_button = page.locator("//div[@role='menuitem' and normalize-space()='Raise Invoice']")
     Raised_option_button.click()
     time.sleep(3)
-    print("Sucessfully clicked on the 'Raise Invoice' button and invoice raised")
+    print("Successfully clicked on the 'Raise Invoice' button and invoice raised")
 
 
     # ===========================================================
@@ -908,6 +975,7 @@ with sync_playwright() as p:
     Submit_button_click.click()
     time.sleep(5)
 
-    print("Invoice flow completed without checker configuration and partial payment :")
+    print("Invoice flow completed without checker configuration and  partial payment :---19/08/2026")
+    print("Invoice flow completed without checker configuration and  with partial payment :---20/08/2026")
     print("=============================================================================")
 
