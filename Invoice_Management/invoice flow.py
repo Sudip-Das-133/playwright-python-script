@@ -1,4 +1,4 @@
-
+import re
 import time
 from datetime import datetime
 from pydoc import visiblename
@@ -13,7 +13,7 @@ from playwright.sync_api import sync_playwright, expect
 MANUAL_DATA = {
     "invoice_number": "13856",
     "invoice_issue_date": "June 13, 2026",
-    "invoice_due_date": "September 13, 2026",
+    "invoice_due_date": "December 13, 2026",
     "invoice_amount": "2631.48"
 }
 
@@ -243,7 +243,7 @@ with sync_playwright() as p:
     page.wait_for_timeout(3000)
 
     print("✓ Proceed clicked")
-
+ 
 
     # ========================================================
     # 6. SELECT ORGANIZATION
@@ -608,18 +608,25 @@ with sync_playwright() as p:
     # 4. Select 28 August 2026
     # =======================================================
 
-    payment_date = page.locator(
-        "button[data-day='8/28/2026']"
+    payment_date = page.get_by_role(
+        "button",
+        name=re.compile(
+            r"September 28th, 2026"
+        )
     )
 
-    payment_date.wait_for(
-        state="visible",
+    # Verify that the target date is visible
+    expect(payment_date).to_be_visible(
         timeout=15000
     )
 
+    # Click the date only once
     payment_date.click()
 
-    print("✓ Last Payment Date selected: August 27, 2026")
+    print(
+        "✓ Last Payment Date selected: "
+        "September 28, 2026"
+    )
 
 
 
