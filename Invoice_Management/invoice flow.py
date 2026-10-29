@@ -8,7 +8,7 @@ from playwright.sync_api import sync_playwright, expect
 
 # ============================================================
 # MANUAL FALLBACK DATA
-# ============================================================
+# ===========================================================
 
 MANUAL_DATA = {
     "invoice_number": "13856",
@@ -230,12 +230,12 @@ with sync_playwright() as p:
     # ========================================================
 
     proceed_button = page.locator(
-        "//span[text()='Next']"
+        "//span[normalize-space()='Proceed']"
     )
 
     proceed_button.wait_for(
         state="visible",
-        timeout=30000
+        timeout=3110000
     )
 
     proceed_button.click()
@@ -605,13 +605,13 @@ with sync_playwright() as p:
 
     print("✓ Last Payment Date picker opened")
     # ==========================================
-    # 4. Select 28 August 2026
+    # 4. Select 28 november 2026
     # =======================================================
 
     payment_date = page.get_by_role(
         "button",
         name=re.compile(
-            r"September 28th, 2026"
+            r"October 29th, 2026"
         )
     )
 
