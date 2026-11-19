@@ -1,0 +1,1506 @@
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--<meta charset="UTF-8">-->
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--<title>Bulk Transaction Management - QA Test Report</title>-->
+
+<!--<style>-->
+<!--:root {-->
+<!--    &#45;&#45;primary: #243b64;-->
+<!--    &#45;&#45;secondary: #4267a9;-->
+<!--    &#45;&#45;bg: #f3f6fb;-->
+<!--    &#45;&#45;white: #ffffff;-->
+<!--    &#45;&#45;text: #253247;-->
+<!--    &#45;&#45;muted: #6b778c;-->
+<!--    &#45;&#45;border: #dfe5ee;-->
+<!--    &#45;&#45;green: #16834a;-->
+<!--    &#45;&#45;red: #d33b3b;-->
+<!--    &#45;&#45;orange: #c77b13;-->
+<!--    &#45;&#45;blue: #2875c7;-->
+<!--    &#45;&#45;gray: #727d8c;-->
+<!--}-->
+
+<!--* {-->
+<!--    box-sizing: border-box;-->
+<!--}-->
+
+<!--body {-->
+<!--    margin: 0;-->
+<!--    padding: 25px;-->
+<!--    background: var(&#45;&#45;bg);-->
+<!--    color: var(&#45;&#45;text);-->
+<!--    font-family: Arial, Helvetica, sans-serif;-->
+<!--}-->
+
+<!--.container {-->
+<!--    max-width: 1450px;-->
+<!--    margin: auto;-->
+<!--}-->
+
+<!--.header {-->
+<!--    background: linear-gradient(120deg, #243b64, #4267a9);-->
+<!--    color: white;-->
+<!--    padding: 30px;-->
+<!--    border-radius: 12px;-->
+<!--    margin-bottom: 22px;-->
+<!--}-->
+
+<!--.header h1 {-->
+<!--    margin: 0 0 10px;-->
+<!--    font-size: 27px;-->
+<!--}-->
+
+<!--.header p {-->
+<!--    margin: 5px 0;-->
+<!--    color: #e5ecf8;-->
+<!--}-->
+
+<!--.header-meta {-->
+<!--    display: flex;-->
+<!--    flex-wrap: wrap;-->
+<!--    gap: 25px;-->
+<!--    margin-top: 18px;-->
+<!--    font-size: 13px;-->
+<!--}-->
+
+<!--.card {-->
+<!--    background: var(&#45;&#45;white);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: 10px;-->
+<!--    padding: 20px;-->
+<!--    margin-bottom: 20px;-->
+<!--    box-shadow: 0 2px 8px rgba(20, 40, 70, 0.04);-->
+<!--}-->
+
+<!--.section-title {-->
+<!--    font-size: 19px;-->
+<!--    color: var(&#45;&#45;primary);-->
+<!--    margin: 0 0 17px;-->
+<!--    padding-bottom: 12px;-->
+<!--    border-bottom: 1px solid var(&#45;&#45;border);-->
+<!--}-->
+
+<!--.summary-grid {-->
+<!--    display: grid;-->
+<!--    grid-template-columns: repeat(6, 1fr);-->
+<!--    gap: 12px;-->
+<!--    margin-bottom: 20px;-->
+<!--}-->
+
+<!--.summary-box {-->
+<!--    background: white;-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: 9px;-->
+<!--    padding: 18px;-->
+<!--}-->
+
+<!--.summary-box .number {-->
+<!--    font-size: 27px;-->
+<!--    font-weight: bold;-->
+<!--    margin-bottom: 7px;-->
+<!--}-->
+
+<!--.summary-box .label {-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--    font-size: 13px;-->
+<!--}-->
+
+<!--.total { color: var(&#45;&#45;primary); }-->
+<!--.passed { color: var(&#45;&#45;green); }-->
+<!--.failed { color: var(&#45;&#45;red); }-->
+<!--.skipped { color: var(&#45;&#45;orange); }-->
+<!--.not-run { color: var(&#45;&#45;gray); }-->
+<!--.warning { color: var(&#45;&#45;blue); }-->
+
+<!--.info-table,-->
+<!--.test-table {-->
+<!--    width: 100%;-->
+<!--    border-collapse: collapse;-->
+<!--    font-size: 13px;-->
+<!--}-->
+
+<!--.info-table td {-->
+<!--    padding: 11px;-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--}-->
+
+<!--.info-table td:first-child {-->
+<!--    width: 22%;-->
+<!--    font-weight: bold;-->
+<!--    background: #f7f9fc;-->
+<!--}-->
+
+<!--.test-table th {-->
+<!--    background: #edf2fa;-->
+<!--    color: var(&#45;&#45;primary);-->
+<!--    text-align: left;-->
+<!--    padding: 12px 10px;-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--}-->
+
+<!--.test-table td {-->
+<!--    padding: 11px 10px;-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    vertical-align: top;-->
+<!--}-->
+
+<!--.test-table tr:nth-child(even) {-->
+<!--    background: #fafbfd;-->
+<!--}-->
+
+<!--.test-table tr:hover {-->
+<!--    background: #f0f5fc;-->
+<!--}-->
+
+<!--.status {-->
+<!--    display: inline-block;-->
+<!--    padding: 5px 9px;-->
+<!--    border-radius: 5px;-->
+<!--    font-size: 11px;-->
+<!--    font-weight: bold;-->
+<!--    white-space: nowrap;-->
+<!--}-->
+
+<!--.status.PASS {-->
+<!--    background: #e0f5e9;-->
+<!--    color: #147b43;-->
+<!--}-->
+
+<!--.status.FAIL {-->
+<!--    background: #fde5e5;-->
+<!--    color: #bd2929;-->
+<!--}-->
+
+<!--.status.NOT_RUN {-->
+<!--    background: #edf0f4;-->
+<!--    color: #667080;-->
+<!--}-->
+
+<!--.status.SKIP {-->
+<!--    background: #fff1d8;-->
+<!--    color: #9a610b;-->
+<!--}-->
+
+<!--.status.WARNING {-->
+<!--    background: #e4f1ff;-->
+<!--    color: #1c65a8;-->
+<!--}-->
+
+<!--.progress-container {-->
+<!--    background: #e7ebf2;-->
+<!--    height: 13px;-->
+<!--    border-radius: 20px;-->
+<!--    overflow: hidden;-->
+<!--    margin-top: 10px;-->
+<!--}-->
+
+<!--.progress-bar {-->
+<!--    height: 100%;-->
+<!--    width: 0;-->
+<!--    background: var(&#45;&#45;green);-->
+<!--    transition: width 0.3s;-->
+<!--}-->
+
+<!--.progress-label {-->
+<!--    display: flex;-->
+<!--    justify-content: space-between;-->
+<!--    font-size: 13px;-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--}-->
+
+<!--.filter-row {-->
+<!--    display: flex;-->
+<!--    flex-wrap: wrap;-->
+<!--    gap: 10px;-->
+<!--    margin-bottom: 15px;-->
+<!--}-->
+
+<!--.filter-row input,-->
+<!--.filter-row select {-->
+<!--    padding: 10px;-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: 6px;-->
+<!--    font-size: 13px;-->
+<!--}-->
+
+<!--.filter-row input {-->
+<!--    flex: 1;-->
+<!--    min-width: 200px;-->
+<!--}-->
+
+<!--button {-->
+<!--    padding: 10px 15px;-->
+<!--    border: none;-->
+<!--    border-radius: 6px;-->
+<!--    cursor: pointer;-->
+<!--    font-weight: bold;-->
+<!--    font-size: 12px;-->
+<!--}-->
+
+<!--.primary-btn {-->
+<!--    background: var(&#45;&#45;primary);-->
+<!--    color: white;-->
+<!--}-->
+
+<!--.secondary-btn {-->
+<!--    background: #e8edf5;-->
+<!--    color: var(&#45;&#45;primary);-->
+<!--}-->
+
+<!--.danger-btn {-->
+<!--    background: #fde5e5;-->
+<!--    color: #bd2929;-->
+<!--}-->
+
+<!--.status-select {-->
+<!--    padding: 6px;-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: 5px;-->
+<!--    font-size: 11px;-->
+<!--}-->
+
+<!--.note {-->
+<!--    padding: 13px;-->
+<!--    background: #fff8e9;-->
+<!--    border-left: 4px solid var(&#45;&#45;orange);-->
+<!--    border-radius: 5px;-->
+<!--    font-size: 13px;-->
+<!--    line-height: 1.6;-->
+<!--    margin-bottom: 15px;-->
+<!--}-->
+
+<!--.footer {-->
+<!--    text-align: center;-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--    font-size: 12px;-->
+<!--    padding: 20px;-->
+<!--}-->
+
+<!--@media (max-width: 1000px) {-->
+<!--    .summary-grid {-->
+<!--        grid-template-columns: repeat(3, 1fr);-->
+<!--    }-->
+<!--}-->
+
+<!--@media (max-width: 600px) {-->
+<!--    body { padding: 10px; }-->
+<!--    .summary-grid {-->
+<!--        grid-template-columns: repeat(2, 1fr);-->
+<!--    }-->
+<!--    .test-table {-->
+<!--        min-width: 850px;-->
+<!--    }-->
+<!--    .table-wrapper {-->
+<!--        overflow-x: auto;-->
+<!--    }-->
+<!--}-->
+
+<!--@media print {-->
+<!--    body {-->
+<!--        padding: 0;-->
+<!--        background: white;-->
+<!--    }-->
+
+<!--    .container {-->
+<!--        max-width: 100%;-->
+<!--    }-->
+
+<!--    .no-print {-->
+<!--        display: none !important;-->
+<!--    }-->
+
+<!--    .card {-->
+<!--        box-shadow: none;-->
+<!--        break-inside: avoid;-->
+<!--    }-->
+
+<!--    .test-table {-->
+<!--        font-size: 10px;-->
+<!--    }-->
+
+<!--    .test-table th,-->
+<!--    .test-table td {-->
+<!--        padding: 6px;-->
+<!--    }-->
+<!--}-->
+<!--</style>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--<div class="container">-->
+
+<!--<header class="header">-->
+<!--    <h1>Bulk Transaction Management</h1>-->
+<!--    <p>Functional, Negative, Boundary and UI Validation Test Report</p>-->
+
+<!--    <div class="header-meta">-->
+<!--        <span><strong>Application:</strong> InvoRush</span>-->
+<!--        <span><strong>Module:</strong> Bulk Transaction</span>-->
+<!--        <span><strong>Automation:</strong> Playwright with Python</span>-->
+<!--        <span><strong>Environment:</strong> Development</span>-->
+<!--    </div>-->
+<!--</header>-->
+
+<!--<section class="summary-grid">-->
+<!--    <div class="summary-box">-->
+<!--        <div class="number total" id="totalCount">0</div>-->
+<!--        <div class="label">Total Test Cases</div>-->
+<!--    </div>-->
+
+<!--    <div class="summary-box">-->
+<!--        <div class="number passed" id="passCount">0</div>-->
+<!--        <div class="label">Passed</div>-->
+<!--    </div>-->
+
+<!--    <div class="summary-box">-->
+<!--        <div class="number failed" id="failCount">0</div>-->
+<!--        <div class="label">Failed</div>-->
+<!--    </div>-->
+
+<!--    <div class="summary-box">-->
+<!--        <div class="number skipped" id="skipCount">0</div>-->
+<!--        <div class="label">Skipped</div>-->
+<!--    </div>-->
+
+<!--    <div class="summary-box">-->
+<!--        <div class="number not-run" id="notRunCount">0</div>-->
+<!--        <div class="label">Not Run</div>-->
+<!--    </div>-->
+
+<!--    <div class="summary-box">-->
+<!--        <div class="number warning" id="passRate">0%</div>-->
+<!--        <div class="label">Pass Percentage</div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--<section class="card">-->
+<!--    <h2 class="section-title">Execution Information</h2>-->
+
+<!--    <table class="info-table">-->
+<!--        <tr>-->
+<!--            <td>Project</td>-->
+<!--            <td>InvoRush Fintech Platform</td>-->
+<!--            <td>Test Module</td>-->
+<!--            <td>Bulk Transaction Management</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>Automation Tool</td>-->
+<!--            <td>Playwright</td>-->
+<!--            <td>Programming Language</td>-->
+<!--            <td>Python</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>Browser</td>-->
+<!--            <td>Chromium</td>-->
+<!--            <td>Test Type</td>-->
+<!--            <td>Functional / Negative / Boundary / UI</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>Execution Date</td>-->
+<!--            <td id="executionDate">Not recorded</td>-->
+<!--            <td>Execution Status</td>-->
+<!--            <td id="overallStatus">NOT RUN</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>Organization</td>-->
+<!--            <td>SAPPHIRO CONSULTING SOLUTIONS PRIVATE LIMITED</td>-->
+<!--            <td>Payment Gateway</td>-->
+<!--            <td>HDFC</td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</section>-->
+
+<!--<section class="card">-->
+<!--    <h2 class="section-title">Execution Progress</h2>-->
+
+<!--    <div class="progress-label">-->
+<!--        <span>Test execution progress</span>-->
+<!--        <strong id="progressText">0%</strong>-->
+<!--    </div>-->
+
+<!--    <div class="progress-container">-->
+<!--        <div class="progress-bar" id="progressBar"></div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--<section class="card">-->
+<!--    <h2 class="section-title">Important Execution Notes</h2>-->
+
+<!--    <div class="note">-->
+<!--        <strong>Payment submission:</strong>-->
+<!--        If the Python script has ALLOW_TEST_PAYMENT_SUBMIT set to False,-->
+<!--        the automation only verifies the selected transaction status and-->
+<!--        submit-button state. It does not complete the final payment submission.-->
+<!--    </div>-->
+
+<!--    <div class="note">-->
+<!--        <strong>Negative testing:</strong>-->
+<!--        Negative test cases must be executed using controlled invalid test data.-->
+<!--        Do not mark them as PASS merely because the positive flow succeeds.-->
+<!--    </div>-->
+
+<!--    <div class="note">-->
+<!--        <strong>Security:</strong>-->
+<!--        Do not store passwords, complete card numbers, CVV values, OTPs or-->
+<!--        payment secrets in this report.-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--<section class="card">-->
+<!--    <h2 class="section-title">Bulk Transaction Test Cases</h2>-->
+
+<!--    <div class="filter-row no-print">-->
+<!--        <input type="text" id="searchInput"-->
+<!--               placeholder="Search test ID, title, module or description...">-->
+
+<!--        <select id="statusFilter">-->
+<!--            <option value="ALL">All Statuses</option>-->
+<!--            <option value="PASS">PASS</option>-->
+<!--            <option value="FAIL">FAIL</option>-->
+<!--            <option value="NOT RUN">NOT RUN</option>-->
+<!--            <option value="SKIP">SKIP</option>-->
+<!--            <option value="WARNING">WARNING</option>-->
+<!--        </select>-->
+
+<!--        <select id="typeFilter">-->
+<!--            <option value="ALL">All Test Types</option>-->
+<!--            <option value="Positive">Positive</option>-->
+<!--            <option value="Negative">Negative</option>-->
+<!--            <option value="Boundary">Boundary</option>-->
+<!--            <option value="UI">UI</option>-->
+<!--            <option value="Security">Security</option>-->
+<!--        </select>-->
+
+<!--        <button class="secondary-btn" onclick="resetStatuses()">Reset Statuses</button>-->
+<!--        <button class="primary-btn" onclick="window.print()">Print / Save PDF</button>-->
+<!--    </div>-->
+
+<!--    <div class="table-wrapper">-->
+<!--    <table class="test-table" id="testTable">-->
+<!--        <thead>-->
+<!--            <tr>-->
+<!--                <th>TC ID</th>-->
+<!--                <th>Module</th>-->
+<!--                <th>Test Type</th>-->
+<!--                <th>Test Scenario / Validation</th>-->
+<!--                <th>Expected Result</th>-->
+<!--                <th>Actual Result / Remarks</th>-->
+<!--                <th>Severity</th>-->
+<!--                <th>Status</th>-->
+<!--            </tr>-->
+<!--        </thead>-->
+
+<!--        <tbody id="testBody">-->
+
+<!--        &lt;!&ndash; LOGIN &ndash;&gt;-->
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-001</td><td>Login</td><td>Positive</td>-->
+<!--            <td>Verify application login using valid credentials.</td>-->
+<!--            <td>User should log in successfully.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-002</td><td>Login</td><td>Negative</td>-->
+<!--            <td>Verify login with invalid password.</td>-->
+<!--            <td>Application should reject login and show an appropriate error.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-003</td><td>Login</td><td>Negative</td>-->
+<!--            <td>Verify login with an empty email and password.</td>-->
+<!--            <td>Required-field validations should be displayed.</td>-->
+<!--            <td></td><td>Medium</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-004</td><td>Navigation</td><td>Positive</td>-->
+<!--            <td>Open Bulk Transaction Management from the application menu.</td>-->
+<!--            <td>Bulk Transaction list should open successfully.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        &lt;!&ndash; CREATE BULK TRANSACTION &ndash;&gt;-->
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-005</td><td>Create Transaction</td><td>Positive</td>-->
+<!--            <td>Click Create Bulk Transaction.</td>-->
+<!--            <td>Create Bulk Transaction screen should open.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-006</td><td>Organization</td><td>Positive</td>-->
+<!--            <td>Select a valid organization from the dropdown.</td>-->
+<!--            <td>Selected organization should be displayed correctly.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-007</td><td>Organization</td><td>Negative</td>-->
+<!--            <td>Attempt to proceed without selecting an organization.</td>-->
+<!--            <td>System should prevent proceeding and show validation.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-008</td><td>Organization</td><td>Positive</td>-->
+<!--            <td>Search and select an organization using its name.</td>-->
+<!--            <td>Matching organization should appear in search results.</td>-->
+<!--            <td></td><td>Medium</td><td></td>-->
+<!--        </tr>-->
+
+<!--        &lt;!&ndash; EXCEL UPLOAD &ndash;&gt;-->
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-009</td><td>Excel Upload</td><td>Positive</td>-->
+<!--            <td>Upload a valid Excel transaction file.</td>-->
+<!--            <td>File should upload successfully.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-010</td><td>Excel Upload</td><td>Negative</td>-->
+<!--            <td>Upload an unsupported file format such as TXT or PDF.</td>-->
+<!--            <td>System should reject unsupported formats.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-011</td><td>Excel Upload</td><td>Negative</td>-->
+<!--            <td>Proceed without uploading an Excel file.</td>-->
+<!--            <td>System should display a required-file validation.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-012</td><td>Excel Upload</td><td>Negative</td>-->
+<!--            <td>Upload a corrupted or unreadable Excel file.</td>-->
+<!--            <td>System should reject the file with a meaningful error.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-013</td><td>Excel Upload</td><td>Negative</td>-->
+<!--            <td>Upload an Excel file with missing mandatory columns.</td>-->
+<!--            <td>System should identify missing required columns.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-014</td><td>Excel Upload</td><td>Negative</td>-->
+<!--            <td>Upload an Excel file containing invalid transaction values.</td>-->
+<!--            <td>Invalid rows should be rejected or clearly reported.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Boundary">-->
+<!--            <td>BT-015</td><td>Excel Upload</td><td>Boundary</td>-->
+<!--            <td>Upload an Excel file with the maximum permitted records.</td>-->
+<!--            <td>System should process the maximum allowed records.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Boundary">-->
+<!--            <td>BT-016</td><td>Excel Upload</td><td>Boundary</td>-->
+<!--            <td>Upload an Excel file exceeding the maximum permitted size.</td>-->
+<!--            <td>System should reject the oversized file.</td>-->
+<!--            <td></td><td>Medium</td><td></td>-->
+<!--        </tr>-->
+
+<!--        &lt;!&ndash; PAYMENT GATEWAY &ndash;&gt;-->
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-017</td><td>Payment Gateway</td><td>Positive</td>-->
+<!--            <td>Select HDFC Payment Gateway.</td>-->
+<!--            <td>HDFC should be selected and displayed correctly.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-018</td><td>Payment Gateway</td><td>Negative</td>-->
+<!--            <td>Proceed without selecting a payment gateway.</td>-->
+<!--            <td>System should prevent proceeding.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-019</td><td>Payment Gateway</td><td>Positive</td>-->
+<!--            <td>Select an available platform rate such as T0 - 1.78%.</td>-->
+<!--            <td>Selected rate should be displayed correctly.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-020</td><td>Payment Gateway</td><td>Negative</td>-->
+<!--            <td>Attempt to proceed without selecting a platform rate.</td>-->
+<!--            <td>System should show a validation message.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Boundary">-->
+<!--            <td>BT-021</td><td>Payment Gateway</td><td>Boundary</td>-->
+<!--            <td>Verify the rate calculation at the minimum and maximum configured rates.</td>-->
+<!--            <td>System should apply the correct configured rate.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        &lt;!&ndash; APPROVAL &ndash;&gt;-->
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-022</td><td>Approval</td><td>Positive</td>-->
+<!--            <td>Verify the created bulk transaction appears in the list.</td>-->
+<!--            <td>Created transaction should be visible with correct details.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-023</td><td>Approval</td><td>Positive</td>-->
+<!--            <td>Open the transaction three-dot action menu.</td>-->
+<!--            <td>Available actions should be displayed.</td>-->
+<!--            <td></td><td>Medium</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-024</td><td>Approval</td><td>Positive</td>-->
+<!--            <td>Approve a transaction using an authorized checker.</td>-->
+<!--            <td>Transaction should move to the approved state.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-025</td><td>Approval</td><td>Negative</td>-->
+<!--            <td>Attempt approval using an unauthorized user.</td>-->
+<!--            <td>System should deny the unauthorized action.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-026</td><td>Approval</td><td>Negative</td>-->
+<!--            <td>Attempt to approve an already approved transaction.</td>-->
+<!--            <td>Duplicate approval should be prevented or handled safely.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        &lt;!&ndash; PAYMENT &ndash;&gt;-->
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-027</td><td>Payment</td><td>Positive</td>-->
+<!--            <td>Open the Payment action for an approved transaction.</td>-->
+<!--            <td>Payment flow should open successfully.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-028</td><td>Payment</td><td>Negative</td>-->
+<!--            <td>Attempt payment for a transaction that is not approved.</td>-->
+<!--            <td>System should prevent payment initiation.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-029</td><td>HDFC Popup</td><td>Positive</td>-->
+<!--            <td>Click Pay Securely Now and verify the HDFC popup.</td>-->
+<!--            <td>HDFC payment window should open successfully.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-030</td><td>HDFC Popup</td><td>Positive</td>-->
+<!--            <td>Click Add Credit/Debit Cards.</td>-->
+<!--            <td>Card entry section should be displayed.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-031</td><td>HDFC Popup</td><td>Negative</td>-->
+<!--            <td>Verify behavior when the payment popup is closed unexpectedly.</td>-->
+<!--            <td>Application should handle popup closure without crashing.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        &lt;!&ndash; CARD VALIDATION &ndash;&gt;-->
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-032</td><td>Card Details</td><td>Positive</td>-->
+<!--            <td>Enter valid test card details.</td>-->
+<!--            <td>Card fields should accept valid test data.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-033</td><td>Card Details</td><td>Negative</td>-->
+<!--            <td>Submit card form with an empty card number.</td>-->
+<!--            <td>Card number validation should appear.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-034</td><td>Card Details</td><td>Negative</td>-->
+<!--            <td>Enter an invalid card number.</td>-->
+<!--            <td>System should reject invalid card details.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-035</td><td>Card Details</td><td>Negative</td>-->
+<!--            <td>Enter an expired card.</td>-->
+<!--            <td>Payment gateway should reject expired card details.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-036</td><td>Card Details</td><td>Negative</td>-->
+<!--            <td>Enter an invalid CVV in a controlled test environment.</td>-->
+<!--            <td>Payment gateway should reject invalid CVV.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Boundary">-->
+<!--            <td>BT-037</td><td>Card Details</td><td>Boundary</td>-->
+<!--            <td>Verify card number field maximum length.</td>-->
+<!--            <td>Field should enforce the supported card number length.</td>-->
+<!--            <td></td><td>Medium</td><td></td>-->
+<!--        </tr>-->
+
+<!--        &lt;!&ndash; PAYMENT PROCESS &ndash;&gt;-->
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-038</td><td>Payment Processing</td><td>Positive</td>-->
+<!--            <td>Click Proceed to Pay with valid test data.</td>-->
+<!--            <td>Payment gateway should proceed to the next step.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-039</td><td>Payment Processing</td><td>Positive</td>-->
+<!--            <td>Verify Secure & Pay action.</td>-->
+<!--            <td>Payment gateway should initiate the configured verification process.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-040</td><td>Payment Processing</td><td>Positive</td>-->
+<!--            <td>Handle the secondary payment popup and its proceed action.</td>-->
+<!--            <td>Automation should interact with the correct popup.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-041</td><td>Payment Processing</td><td>Negative</td>-->
+<!--            <td>Verify behavior when payment gateway returns a failure.</td>-->
+<!--            <td>Failure should be displayed and transaction should not be falsely marked successful.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-042</td><td>Payment Processing</td><td>Negative</td>-->
+<!--            <td>Verify behavior when payment gateway times out.</td>-->
+<!--            <td>System should handle timeout and maintain a consistent transaction state.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-043</td><td>Payment Processing</td><td>Negative</td>-->
+<!--            <td>Attempt duplicate payment submission.</td>-->
+<!--            <td>Duplicate payment should be prevented or handled idempotently.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        &lt;!&ndash; STATUS AND RECONCILIATION &ndash;&gt;-->
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-044</td><td>Transaction Status</td><td>Positive</td>-->
+<!--            <td>Select CHARGED in the transaction status dropdown.</td>-->
+<!--            <td>CHARGED should be selected and displayed.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-045</td><td>Transaction Status</td><td>Negative</td>-->
+<!--            <td>Attempt final submission without selecting a transaction status.</td>-->
+<!--            <td>System should enforce the required status selection.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-046</td><td>Transaction Status</td><td>Positive</td>-->
+<!--            <td>Verify final submit button state after selecting CHARGED.</td>-->
+<!--            <td>Submit button should have the expected enabled/disabled state.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Positive">-->
+<!--            <td>BT-047</td><td>UTR / Reconciliation</td><td>Positive</td>-->
+<!--            <td>Verify UTR availability after successful payment processing.</td>-->
+<!--            <td>UTR should be available according to the payment workflow.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-048</td><td>UTR / Reconciliation</td><td>Negative</td>-->
+<!--            <td>Verify behavior when payment is initiated without a valid UTR, where required.</td>-->
+<!--            <td>System should enforce the applicable UTR rule.</td>-->
+<!--            <td></td><td>High</td><td></td>-->
+<!--        </tr>-->
+
+<!--        &lt;!&ndash; SECURITY / UI &ndash;&gt;-->
+<!--        <tr data-type="Security">-->
+<!--            <td>BT-049</td><td>Authorization</td><td>Security</td>-->
+<!--            <td>Verify a user cannot access another organization's bulk transaction data.</td>-->
+<!--            <td>Cross-organization data access should be denied.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Security">-->
+<!--            <td>BT-050</td><td>Authorization</td><td>Security</td>-->
+<!--            <td>Verify payment and approval actions are restricted by user roles.</td>-->
+<!--            <td>Only authorized roles should perform restricted actions.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="UI">-->
+<!--            <td>BT-051</td><td>UI</td><td>UI</td>-->
+<!--            <td>Verify dropdowns, buttons, labels and field alignment.</td>-->
+<!--            <td>All elements should be visible and properly aligned.</td>-->
+<!--            <td></td><td>Low</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="UI">-->
+<!--            <td>BT-052</td><td>UI</td><td>UI</td>-->
+<!--            <td>Verify application behavior after refreshing the transaction list.</td>-->
+<!--            <td>Data and transaction status should remain consistent.</td>-->
+<!--            <td></td><td>Medium</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Boundary">-->
+<!--            <td>BT-053</td><td>Reliability</td><td>Boundary</td>-->
+<!--            <td>Verify application behavior during slow network conditions.</td>-->
+<!--            <td>Application should handle delays without creating duplicate actions.</td>-->
+<!--            <td></td><td>Medium</td><td></td>-->
+<!--        </tr>-->
+
+<!--        <tr data-type="Negative">-->
+<!--            <td>BT-054</td><td>Reliability</td><td>Negative</td>-->
+<!--            <td>Verify behavior when the browser is refreshed during payment processing.</td>-->
+<!--            <td>Transaction state should remain consistent and duplicate processing should be avoided.</td>-->
+<!--            <td></td><td>Critical</td><td></td>-->
+<!--        </tr>-->
+
+<!--        </tbody>-->
+<!--    </table>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--<section class="card">-->
+<!--    <h2 class="section-title">Final Execution Summary</h2>-->
+
+<!--    <table class="info-table">-->
+<!--        <tr><td>Total Test Cases</td><td id="finalTotal">0</td></tr>-->
+<!--        <tr><td>Passed Test Cases</td><td id="finalPass">0</td></tr>-->
+<!--        <tr><td>Failed Test Cases</td><td id="finalFail">0</td></tr>-->
+<!--        <tr><td>Skipped Test Cases</td><td id="finalSkip">0</td></tr>-->
+<!--        <tr><td>Not Run</td><td id="finalNotRun">0</td></tr>-->
+<!--        <tr><td>Pass Percentage</td><td id="finalRate">0%</td></tr>-->
+<!--        <tr><td>Overall Result</td><td id="finalResult">NOT RUN</td></tr>-->
+<!--    </table>-->
+<!--</section>-->
+
+<!--<footer class="footer">-->
+<!--    InvoRush | Bulk Transaction Management | QA Automation Report-->
+<!--    <br>-->
+<!--    Generated as a test report template. Results must reflect actual execution.-->
+<!--</footer>-->
+
+<!--</div>-->
+
+<!--<script>-->
+<!--const rows = Array.from(document.querySelectorAll("#testBody tr"));-->
+
+<!--function createStatusControl(row) {-->
+<!--    const cell = row.cells[7];-->
+
+<!--    const select = document.createElement("select");-->
+<!--    select.className = "status-select no-print";-->
+<!--    select.innerHTML = `-->
+<!--        <option value="NOT RUN">NOT RUN</option>-->
+<!--        <option value="PASS">PASS</option>-->
+<!--        <option value="FAIL">FAIL</option>-->
+<!--        <option value="SKIP">SKIP</option>-->
+<!--        <option value="WARNING">WARNING</option>-->
+<!--    `;-->
+
+<!--    const badge = document.createElement("span");-->
+<!--    badge.className = "status NOT_RUN";-->
+<!--    badge.textContent = "NOT RUN";-->
+
+<!--    select.addEventListener("change", function () {-->
+<!--        badge.className = "status " + this.value.replace(" ", "_");-->
+<!--        badge.textContent = this.value;-->
+<!--        updateReport();-->
+<!--    });-->
+
+<!--    cell.appendChild(select);-->
+<!--    cell.appendChild(document.createTextNode(" "));-->
+<!--    cell.appendChild(badge);-->
+<!--}-->
+
+<!--rows.forEach(createStatusControl);-->
+
+<!--function getStatus(row) {-->
+<!--    return row.querySelector("select").value;-->
+<!--}-->
+
+<!--function updateReport() {-->
+<!--    const total = rows.length;-->
+<!--    const counts = {-->
+<!--        PASS: 0,-->
+<!--        FAIL: 0,-->
+<!--        SKIP: 0,-->
+<!--        "NOT RUN": 0,-->
+<!--        WARNING: 0-->
+<!--    };-->
+
+<!--    rows.forEach(row => {-->
+<!--        counts[getStatus(row)]++;-->
+<!--    });-->
+
+<!--    const executed = total - counts["NOT RUN"];-->
+<!--    const passRate = executed > 0-->
+<!--        ? Math.round((counts.PASS / executed) * 100)-->
+<!--        : 0;-->
+
+<!--    const progress = total > 0-->
+<!--        ? Math.round((executed / total) * 100)-->
+<!--        : 0;-->
+
+<!--    document.getElementById("totalCount").textContent = total;-->
+<!--    document.getElementById("passCount").textContent = counts.PASS;-->
+<!--    document.getElementById("failCount").textContent = counts.FAIL;-->
+<!--    document.getElementById("skipCount").textContent = counts.SKIP;-->
+<!--    document.getElementById("notRunCount").textContent = counts["NOT RUN"];-->
+<!--    document.getElementById("passRate").textContent = passRate + "%";-->
+
+<!--    document.getElementById("progressBar").style.width = progress + "%";-->
+<!--    document.getElementById("progressText").textContent = progress + "%";-->
+
+<!--    document.getElementById("finalTotal").textContent = total;-->
+<!--    document.getElementById("finalPass").textContent = counts.PASS;-->
+<!--    document.getElementById("finalFail").textContent = counts.FAIL;-->
+<!--    document.getElementById("finalSkip").textContent = counts.SKIP;-->
+<!--    document.getElementById("finalNotRun").textContent = counts["NOT RUN"];-->
+<!--    document.getElementById("finalRate").textContent = passRate + "%";-->
+
+<!--    let overall = "NOT RUN";-->
+
+<!--    if (counts.FAIL > 0) {-->
+<!--        overall = "FAIL";-->
+<!--    } else if (counts["NOT RUN"] === 0 && counts.PASS > 0) {-->
+<!--        overall = "PASS";-->
+<!--    } else if (executed > 0) {-->
+<!--        overall = "IN PROGRESS";-->
+<!--    }-->
+
+<!--    document.getElementById("overallStatus").textContent = overall;-->
+<!--    document.getElementById("finalResult").textContent = overall;-->
+<!--}-->
+
+<!--function resetStatuses() {-->
+<!--    rows.forEach(row => {-->
+<!--        row.querySelector("select").value = "NOT RUN";-->
+<!--        const badge = row.querySelector(".status");-->
+<!--        badge.className = "status NOT_RUN";-->
+<!--        badge.textContent = "NOT RUN";-->
+<!--        row.cells[5].textContent = "";-->
+<!--    });-->
+
+<!--    updateReport();-->
+<!--}-->
+
+<!--function filterTable() {-->
+<!--    const search = document.getElementById("searchInput")-->
+<!--        .value.toLowerCase();-->
+
+<!--    const status = document.getElementById("statusFilter").value;-->
+<!--    const type = document.getElementById("typeFilter").value;-->
+
+<!--    rows.forEach(row => {-->
+<!--        const text = row.innerText.toLowerCase();-->
+<!--        const rowStatus = getStatus(row);-->
+<!--        const rowType = row.dataset.type;-->
+
+<!--        const matchesSearch = text.includes(search);-->
+<!--        const matchesStatus = status === "ALL" || rowStatus === status;-->
+<!--        const matchesType = type === "ALL" || rowType === type;-->
+
+<!--        row.style.display =-->
+<!--            matchesSearch && matchesStatus && matchesType-->
+<!--                ? ""-->
+<!--                : "none";-->
+<!--    });-->
+<!--}-->
+
+<!--document.getElementById("searchInput")-->
+<!--    .addEventListener("input", filterTable);-->
+
+<!--document.getElementById("statusFilter")-->
+<!--    .addEventListener("change", filterTable);-->
+
+<!--document.getElementById("typeFilter")-->
+<!--    .addEventListener("change", filterTable);-->
+
+<!--document.getElementById("executionDate").textContent =-->
+<!--    new Date().toLocaleString();-->
+
+<!--updateReport();-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#############################################################################################
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bulk Transaction Payment Automation Test Report</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+    color: #212529;
+}
+
+.container {
+    width: 95%;
+    max-width: 1700px;
+    margin: 30px auto;
+}
+
+.header, .section, .summary-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+.header h1 { margin-top: 0; font-size: 28px; }
+.header p { color: #555; margin: 7px 0; }
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+}
+
+.summary-card { padding: 20px; }
+.summary-card h2 { font-size: 30px; margin: 0; }
+.summary-card p { color: #666; margin-bottom: 0; }
+
+.total { border-left: 6px solid #0d6efd; }
+.passed { border-left: 6px solid #198754; }
+.failed { border-left: 6px solid #dc3545; }
+.warnings { border-left: 6px solid #ffc107; }
+.duration { border-left: 6px solid #6f42c1; }
+
+.section h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 12px;
+}
+
+.info-table, .test-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.info-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.info-table td:first-child {
+    width: 260px;
+    font-weight: bold;
+}
+
+.table-wrapper { overflow-x: auto; }
+
+.test-table { min-width: 1100px; }
+
+.test-table th {
+    background: #212529;
+    color: white;
+    padding: 13px;
+    text-align: left;
+}
+
+.test-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+}
+
+.test-table tr:hover { background: #f8f9fa; }
+
+.status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.pass { background: #d1e7dd; color: #0f5132; }
+.fail { background: #f8d7da; color: #842029; }
+.warning { background: #fff3cd; color: #664d03; }
+.pending { background: #e2e3e5; color: #41464b; }
+
+.progress-container {
+    height: 22px;
+    background: #e9ecef;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 100%;
+    background: #198754;
+}
+
+.flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px;
+}
+
+.flow-step {
+    padding: 10px 13px;
+    border-radius: 7px;
+    background: #d1e7dd;
+    color: #0f5132;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.arrow { color: #777; font-weight: bold; }
+
+.note {
+    padding: 14px;
+    border-left: 5px solid #ffc107;
+    background: #fff3cd;
+    border-radius: 5px;
+    line-height: 1.6;
+}
+
+.success-note {
+    padding: 14px;
+    border-left: 5px solid #198754;
+    background: #d1e7dd;
+    border-radius: 5px;
+}
+
+.footer {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+}
+
+@media(max-width: 1000px) {
+    .summary { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media(max-width: 600px) {
+    .summary { grid-template-columns: 1fr; }
+    .container { width: 98%; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+    <h1>Bulk Transaction Payment Automation Test Report</h1>
+
+    <p><strong>Automation Framework:</strong> Playwright + Python</p>
+    <p><strong>Test Module:</strong> Bulk Transaction Management & Payment</p>
+    <p><strong>Application:</strong> Invorush</p>
+    <p><strong>Payment Gateway:</strong> HDFC Payment Gateway</p>
+    <p><strong>Test Flow:</strong> Login → Bulk Transaction Creation → Excel Upload → Gateway Selection → Rate Selection → Approval → Payment Initiation → HDFC Payment → Final Submission</p>
+    <p><strong>Execution Start:</strong> <span id="startTime">Not captured</span></p>
+    <p><strong>Execution End:</strong> <span id="endTime">Not captured</span></p>
+    <p><strong>Execution Duration:</strong> <span id="duration">Not captured</span></p>
+
+    <div id="overall" class="status warning">
+        EXECUTION COMPLETED — PAYMENT VERIFICATION PENDING
+    </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary">
+    <div class="summary-card total">
+        <h2 id="total">12</h2>
+        <p>Execution Stages</p>
+    </div>
+    <div class="summary-card passed">
+        <h2 id="passed">9</h2>
+        <p>Actions / Basic Checks Completed</p>
+    </div>
+    <div class="summary-card failed">
+        <h2 id="failed">0</h2>
+        <p>Recorded Failures</p>
+    </div>
+    <div class="summary-card warnings">
+        <h2 id="warnings">3</h2>
+        <p>Verification Pending</p>
+    </div>
+    <div class="summary-card duration">
+        <h2 id="durationSeconds">-</h2>
+        <p>Execution Time</p>
+    </div>
+</div>
+
+<!-- EXECUTION INFORMATION -->
+<div class="section">
+<h2>1. Test Execution Information</h2>
+<table class="info-table">
+<tr><td>Application</td><td>Invorush</td></tr>
+<tr><td>Environment</td><td>Development</td></tr>
+<tr><td>Application URL</td><td>https://org.dev.invorush.com/</td></tr>
+<tr><td>Browser</td><td>Chromium</td></tr>
+<tr><td>Browser Mode</td><td>Headed</td></tr>
+<tr><td>Automation Language</td><td>Python</td></tr>
+<tr><td>Automation Framework</td><td>Playwright</td></tr>
+<tr><td>Organization</td><td>SAPPHIRO CONSULTING SOLUTIONS PRIVATE LIMITED</td></tr>
+<tr><td>Uploaded File</td><td>sample (8).xlsx</td></tr>
+<tr><td>Payment Gateway</td><td>HDFC Payment Gateway</td></tr>
+<tr><td>Selected Rate</td><td>T0 - 2.5%</td></tr>
+<tr><td>Transaction State Selected</td><td>CHARGED</td></tr>
+<tr><td>Final Submit Configuration</td><td>ALLOW_TEST_PAYMENT_SUBMIT = True</td></tr>
+<tr><td>Execution Result</td><td>Final submission action reached; gateway outcome not independently verified</td></tr>
+</table>
+</div>
+
+<!-- FLOW -->
+<div class="section">
+<h2>2. Bulk Transaction Payment Flow</h2>
+<div class="flow">
+    <div class="flow-step">Application Login</div><span class="arrow">→</span>
+    <div class="flow-step">Bulk Transaction List</div><span class="arrow">→</span>
+    <div class="flow-step">Create Transaction</div><span class="arrow">→</span>
+    <div class="flow-step">Organization Selection</div><span class="arrow">→</span>
+    <div class="flow-step">Excel Upload</div><span class="arrow">→</span>
+    <div class="flow-step">HDFC Selection</div><span class="arrow">→</span>
+    <div class="flow-step">Rate Selection</div><span class="arrow">→</span>
+    <div class="flow-step">Approval</div><span class="arrow">→</span>
+    <div class="flow-step">Payment Initiation</div><span class="arrow">→</span>
+    <div class="flow-step">HDFC Payment Form</div><span class="arrow">→</span>
+    <div class="flow-step">CHARGED</div><span class="arrow">→</span>
+    <div class="flow-step">Final Submit</div>
+</div>
+</div>
+
+<!-- PROGRESS -->
+<div class="section">
+<h2>3. Execution Progress</h2>
+<div class="progress-container">
+    <div class="progress-bar"></div>
+</div>
+<p><strong>Automation flow reached:</strong> Final configured payment submission step.</p>
+<p><strong>Payment verification:</strong> Pending.</p>
+</div>
+
+<!-- MAIN EXECUTION -->
+<div class="section">
+<h2>4. Bulk Transaction Automation Execution Details</h2>
+<div class="table-wrapper">
+<table class="test-table">
+<thead>
+<tr>
+<th>#</th><th>Execution Step</th><th>Expected Result</th>
+<th>Observed / Script Action</th><th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Open Invorush Application</td><td>Application should load</td><td>Application opened successfully</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>2</td><td>User Login</td><td>User should authenticate successfully</td><td>Login successful</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>3</td><td>Bulk Transaction List</td><td>Bulk Transaction List should open</td><td>Bulk Transaction List opened</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>4</td><td>Create Bulk Transaction</td><td>Creation form should open</td><td>Create Bulk Transaction clicked</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>5</td><td>Organization Selection</td><td>Correct organization should be selected</td><td>SAPPHIRO CONSULTING SOLUTIONS PRIVATE LIMITED selected</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>6</td><td>Excel File Upload</td><td>Excel file should be uploaded</td><td>sample (8).xlsx uploaded</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>7</td><td>Payment Gateway Selection</td><td>HDFC should be selected</td><td>HDFC Payment Gateway selected in dropdown</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>8</td><td>Rate Selection</td><td>Configured rate should be selected</td><td>T0 - 2.5% selected</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>9</td><td>Transaction Approval</td><td>Transaction should be approved</td><td>Approve and Continue actions executed</td><td><span class="status warning">ACTION EXECUTED</span></td></tr>
+<tr><td>10</td><td>Payment Initiation</td><td>Payment page should open</td><td>Payment and Pay Securely Now actions executed</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>11</td><td>HDFC Payment Form</td><td>Card form should be available and populated</td><td>Add Credit/Debit Cards and card form interactions executed</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>12</td><td>Proceed to Pay / Secure & Pay</td><td>Next HDFC payment stage should open</td><td>Payment actions executed and second HDFC window captured</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>13</td><td>Transaction State</td><td>Test state should be selected</td><td>CHARGED selected</td><td><span class="status warning">ACTION EXECUTED</span></td></tr>
+<tr><td>14</td><td>Final Submit Button</td><td>Submit should be enabled and clickable</td><td>Submit button enabled and clicked</td><td><span class="status pass">PASS</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- HDFC -->
+<div class="section">
+<h2>5. HDFC Payment Gateway Response</h2>
+<div class="table-wrapper">
+<table class="test-table">
+<thead>
+<tr><th>#</th><th>Validation</th><th>Expected Result</th><th>Observed Result</th><th>Status</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>HDFC Payment Window</td><td>Gateway window should open</td><td>HDFC window captured</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>2</td><td>Card Form Interaction</td><td>Payment form should accept authorized test data</td><td>Form interactions executed</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>3</td><td>Final Submit</td><td>Final payment submission should be initiated</td><td>Submit click executed</td><td><span class="status pass">PASS</span></td></tr>
+<tr><td>4</td><td>Gateway Success Response</td><td>HDFC should return authoritative success</td><td>Not inspected by current script</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+<tr><td>5</td><td>Gateway Transaction Reference</td><td>Reference should be captured</td><td>Not verified</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+<tr><td>6</td><td>Gateway Failure Handling</td><td>Failure response should be identified</td><td>Not tested in this execution</td><td><span class="status pending">NOT EXECUTED</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- INVORUSH -->
+<div class="section">
+<h2>6. Invorush Transaction Verification</h2>
+<div class="table-wrapper">
+<table class="test-table">
+<thead>
+<tr><th>#</th><th>Validation</th><th>Expected Result</th><th>Observed Result</th><th>Status</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Return to Invorush</td><td>Application should return to transaction list</td><td>Not verified after final submission</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+<tr><td>2</td><td>Final Transaction Status</td><td>Correct final status should be displayed</td><td>Not verified</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+<tr><td>3</td><td>Payment Amount</td><td>Amount should match the gateway transaction</td><td>Not verified</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+<tr><td>4</td><td>UTR / Transaction Reference</td><td>Reference should be generated and displayed where applicable</td><td>Not verified</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+<tr><td>5</td><td>Organization</td><td>Correct organization should own the transaction</td><td>Organization selected during creation</td><td><span class="status pass">SELECTION CHECKED</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- CALLBACK -->
+<div class="section">
+<h2>7. Payment Callback Verification</h2>
+<div class="table-wrapper">
+<table class="test-table">
+<thead>
+<tr><th>#</th><th>Validation</th><th>Expected Result</th><th>Observed Result</th><th>Status</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>HDFC Callback Receipt</td><td>Invorush should receive gateway callback</td><td>Not checked by browser script</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+<tr><td>2</td><td>Callback Authentication</td><td>Callback signature should be validated</td><td>Not checked</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+<tr><td>3</td><td>Transaction Mapping</td><td>Callback should update correct transaction</td><td>Not checked</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+<tr><td>4</td><td>Duplicate Callback</td><td>Duplicate callback should not duplicate payment</td><td>Not tested</td><td><span class="status pending">NOT EXECUTED</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- FINAL -->
+<div class="section">
+<h2>8. Final Execution Summary</h2>
+<div class="note">
+<strong>Execution conclusion:</strong> The automation reached the final configured HDFC payment submission action. The current script confirms the browser interactions and selected test state, but does not inspect the authoritative gateway response or verify the resulting Invorush transaction and callback.
+</div>
+<br>
+<table class="info-table">
+<tr><td>Application Login</td><td><span class="status pass">COMPLETED</span></td></tr>
+<tr><td>Bulk Transaction Creation</td><td><span class="status pass">COMPLETED</span></td></tr>
+<tr><td>Excel Upload</td><td><span class="status pass">COMPLETED</span></td></tr>
+<tr><td>HDFC Selection</td><td><span class="status pass">COMPLETED</span></td></tr>
+<tr><td>Rate Selection</td><td><span class="status pass">COMPLETED</span></td></tr>
+<tr><td>Approval Action</td><td><span class="status warning">STATUS NOT VERIFIED</span></td></tr>
+<tr><td>Payment Initiation</td><td><span class="status pass">ACTION COMPLETED</span></td></tr>
+<tr><td>Final Submit</td><td><span class="status pass">CLICK COMPLETED</span></td></tr>
+<tr><td>HDFC Payment Success</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+<tr><td>Invorush Final Status</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+<tr><td>UTR Verification</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+<tr><td>Payment Callback</td><td><span class="status warning">NOT VERIFIED</span></td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>9. QA Recommendation</h2>
+<div class="success-note">
+The existing Playwright automation successfully covers the main browser-based Bulk Transaction Payment journey up to the final configured submission step.
+</div>
+<p>To establish end-to-end payment success, extend the automation with:</p>
+<ul>
+<li>HDFC gateway response inspection and success/failure assertions.</li>
+<li>Gateway transaction reference capture.</li>
+<li>Invorush transaction status verification.</li>
+<li>Payment amount and UTR reconciliation.</li>
+<li>Backend callback receipt and signature verification.</li>
+</ul>
+</div>
+
+<div class="footer">
+    Bulk Transaction Payment Automation Test Report<br>
+    Prepared using Python + Playwright | Invorush QA
+</div>
+
+</div>
+</body>
+</html>
+
